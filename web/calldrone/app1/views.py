@@ -3,13 +3,13 @@ from django.http import HttpResponse
 
 # Create your views here.
 def page1(request):
-    return HttpResponse("page1")
+    return render(request, 'app1/index.html')
 
 def page2(request):
-    return HttpResponse("page2")
+    return render(request, 'app1/page2.html')
 
 def page3(request):
-    return HttpResponse("page3")
+    return render(request, 'app1/page3.html')
 
 def page4(request):
-    return HttpResponse("page4")
+    return render(request, 'app1/page4.html')
