@@ -1,0 +1,8 @@
+*{margin: 0; padding: 0; box-sizing: border-box; font-family: 'YeolrinGothic-Light';}
+li , ul {list-style: none;}
+a {color: rgb(189, 35, 35); text-decoration: none;}
+
+div {
+    color: rgb(255, 153, 0);
+    /* background-color: rgb(121, 24, 231); */
+}
