@@ -1,0 +1,24 @@
+* {margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'YeolrinGothic-Light';}
+
+li , ul {list-style: none;}
+
+a {color: rgb(189, 35, 35);
+    text-decoration: none;}
+
+.menu {text-align: center;}
+
+.h_menu a {margin-left: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+    color : #58595b;}
+
+.h_menu {display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: aquamarine;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
