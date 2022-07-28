@@ -1,5 +1,25 @@
 {% extends './base.html' %}
 
 {% block content %}
-    <h1>page3입니다</h1> 
+    <h1>목적지를 입력하세요</h1>
+
+    <div>
+        <form action="/app1/page3" method="post">
+            <p>
+                <label for="name">시</label>
+                <input type="text" id="시" name="시">
+            </p>
+            <p>
+                <label for="email">군</label>
+                <input type="text" id="군" name="군">
+            </p>
+            <p>
+                <label for="email">상세주소</label>
+                <input type="text" id="상세주소" name="상세주소">
+            </p>
+            <input type="submit" value="제출하기">
+            
+        </form>
+    </div>
 {% endblock %}
+
