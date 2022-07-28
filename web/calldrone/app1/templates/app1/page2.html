@@ -3,6 +3,19 @@
 {% block content %}
     <h1>페이로드 제원정보</h1> 
 
-
+    <div>
+        <form action="/app1/page3" method="post">
+            <p>
+                <label for="name">무게</label>
+                <input type="text" id="무게" name="무게">
+            </p>
+            <p>
+                <label for="email">속도</label>
+                <input type="text" id="속도" name="속도">
+            </p>
+            <input type="submit" value="제출하기">
+            
+        </form>
+    </div>
     
 {% endblock %}
