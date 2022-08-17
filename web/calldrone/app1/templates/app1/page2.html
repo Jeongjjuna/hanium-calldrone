@@ -1,21 +1,46 @@
 {% extends './base.html' %}
 
-{% block content %}
-    <h1>페이로드 제원정보</h1> 
+<!-- header -->
 
-    <div>
-        <form action="/app1/page3" method="post">
+
+<!-- main -->
+{% block content %}
+<div>
+    <form action="/app1/page3" method="post">
+        <div>
+            <h1>목적지 등록</h1>
             <p>
-                <label for="name">무게</label>
+                <label for="name">목적지</label>
+                <input type="text" id="시" name="시">
+            </p>
+            <p>
+                <label for="email">구/군/면</label>
+                <input type="text" id="군" name="군">
+            </p>
+            <p>
+                <label for="email">상세주소</label>
+                <input type="text" id="상세주소" name="상세주소">
+            </p>
+        </div>
+        
+        <div>
+            <h1>페이로드 정보</h1>
+            <p>
+                <label for="name">배송품 무게</label>
                 <input type="text" id="무게" name="무게">
             </p>
             <p>
-                <label for="email">속도</label>
+                <label for="email">배송 속도</label>
                 <input type="text" id="속도" name="속도">
             </p>
             <input type="submit" value="제출하기">
-            
-        </form>
-    </div>
-    
+        </div>
+    </form>
+</div>  
+{% endblock %}
+
+
+<!-- footer -->
+{% block footer %}
+    <h1>호출</h1> 
 {% endblock %}
