@@ -9,7 +9,7 @@ def page2(request):
     return render(request, 'app1/page2.html')
 
 def page3(request):
-    return render(request, 'app1/page3.html')
+    return render(request, 'app1/page3.html', context={'text' : 'Hello World'})
 
 def page4(request):
     return render(request, 'app1/page4.html')

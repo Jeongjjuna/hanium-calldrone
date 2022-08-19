@@ -7,11 +7,27 @@
 {% block content %}
     <p>배송상태 : </p>
 
+
+    <h1 id="app">{{text}}</h1>
+
     <!-- 드론위치 지도에 표시 -->
     <div id = "map_bg">
         <div id ="map" class="map"></div>
     </div>
     
+
+
+    <script>
+        let socket = new WebSocket('ws:localhost:8000/ws/some_url/')
+
+        socket.onmessage = function(event){
+            let data = JSON.parse(event.data);
+            console.log(data);
+            document.querySelector('#app').innerText = data.message;
+        }
+
+    </script>
+
 
     <!-- 카카오지도API 사용 -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fddbb98b1c8bf19ba082003e2b48346e"></script>
