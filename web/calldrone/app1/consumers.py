@@ -12,3 +12,4 @@ class WSConsumer(AsyncWebsocketConsumer):
         for i in range(1000):
             await self.send(json.dumps({'message' : randint(1, 100)}))
             await sleep(1)
+            print('실행중입니다')
