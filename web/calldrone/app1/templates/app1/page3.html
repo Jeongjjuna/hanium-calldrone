@@ -16,7 +16,7 @@
     </div>
     
 
-
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fddbb98b1c8bf19ba082003e2b48346e"></script>
     <script>
         let socket = new WebSocket('ws:localhost:8000/ws/some_url/')
 
@@ -24,21 +24,13 @@
             let data = JSON.parse(event.data);
             console.log(data);
             document.querySelector('#app').innerText = data.message;
-        }
 
-    </script>
-
-
-    <!-- 카카오지도API 사용 -->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fddbb98b1c8bf19ba082003e2b48346e"></script>
-    <script>
+            // -----------------------------------위,경도 좌표 지도에 표시 및 지도 출력-------------------------------------//
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-                mapOption = { 
-                    center: new kakao.maps.LatLng(34.929172187867515, 127.49916182770164), // 지도의 중심좌표
-                    level: 3 // 지도의 확대 레벨
-                };
-                
-
+            mapOption = { 
+                center: new kakao.maps.LatLng(data.message, 126.978), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
             // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
             var map = new kakao.maps.Map(mapContainer, mapOption); 
 
@@ -48,6 +40,9 @@
                 position: map.getCenter() 
             }); 
             marker.setMap(map);
+            // ---------------------------------------------------------------------------------//
+        }
+
     </script>
 {% endblock %}
 
