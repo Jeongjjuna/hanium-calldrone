@@ -2,6 +2,10 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import time
+from _thread import *
+
+from app1.consumers import WSConsumer
 
 
 def main():
@@ -18,5 +22,21 @@ def main():
     execute_from_command_line(sys.argv)
 
 
+def threaded(client_socket, addr): 
+    a = 37.5665
+    while True:
+        WSConsumer.class_var.append(a)
+        time.sleep(2)
+        a = a * (1.000001)
+        print(WSConsumer.class_var)
+
+
 if __name__ == '__main__':
+    """
+    드론 - 서버 소켓통신 시작하는 쓰레드 함수
+    WSconsumer 클래스의 변수에 접근하여 통신이 필요한지 아닌지 제어해 줄 수 있다.
+    """
+    start_new_thread(threaded, (0, 1))
+    
+    """django 서버 시작하는 함수"""
     main()
