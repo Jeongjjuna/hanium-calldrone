@@ -12,12 +12,22 @@ a {
 
 /* 메뉴바 */
 .menu {
-    text-align: center;}
+    text-align: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 6rem;
+    text-align: center;
+    background-color: #e7e9ed;
+    padding: 10px;
+    border-radius:90px;
+    box-shadow: -6px -6px 5px rgba(226,226,226,0.8), 6px 6px 10px rgba(0,0,0,0.2);
+}
 .h_menu {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: aquamarine;
     padding-top: 20px;
     padding-bottom: 20px;}
 .h_menu a {
@@ -38,3 +48,41 @@ a {
     height: 100%;
     object-fit: cover;
     border-radius: 15px;}
+/* body{
+    width: 100vw;
+    height: 100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #f3f0f1;
+
+}
+
+.button{
+    width: 200px;
+    height: 100px;
+    background: #f3f0f1;
+    position: relative;
+    margin-bottom: 25px;
+    text-align: center;
+    border-radius: 50px;
+    transition: all 0.1s ease-in-out;
+    font-size: 32px;
+    box-shadow: -6px -6px 5px rgba(228,226,226,0.8), 6px 6px 10px rgba(0,0,0,0.2);
+    color:#34d2c7;
+    line-height: 100px;
+}
+
+.active{
+    box-shadow: inset -5px -5px -5px rgba(255,255,255,0.5), inset 8px 0px 16px rgba(0,0,0,0.1);
+    color: #ffffff;
+    background-color: #34d2c7;
+}
+
+.container{
+    background-color: #e7e9ed;
+    padding: 10px;
+    border-radius:50px;
+    box-shadow: -6px -6px 5px rgba(226,226,226,0.8), 6px 6px 10px rgba(0,0,0,0.2);
+} */
