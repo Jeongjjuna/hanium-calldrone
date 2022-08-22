@@ -10,29 +10,32 @@
     <title>calldrone</title>
 </head>
 <body>
+    <div>
+        <header>
+            {% block footer %}
+            {% endblock %}
+        </header>
+    </div>
     
-    <header>
-        
-    </header>
+    <div>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
     
-    <main>
-    {% block content %}
-    {% endblock %}
-    </main>
-
-    <footer>
-        {% block footer %}
-        {% endblock %}
-        
-        <div class="menu">
-            <ul class="h_menu">
-                <li><a href="/app1/page1">홈</a></li>
-                <li><a href="/app1/page2">호출</a></li>
-                <li><a href="/app1/page3">알림</a></li>
-                <li><a href="/app1/page4">마이페이지</a></li>
-            </ul>
-        </div>
-    </footer>
+    <div>
+        <footer>
+            <div class="menu">
+                <ul class="h_menu">
+                    <li><a href="/app1/page1">홈</a></li>
+                    <li><a href="/app1/page2">호출</a></li>
+                    <li><a href="/app1/page3">알림</a></li>
+                    <li><a href="/app1/page4">마이페이지</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>
 
