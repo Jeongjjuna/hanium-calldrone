@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
 import os
+import socket
 import sys
 import time
 from _thread import *
@@ -23,18 +24,43 @@ def main():
 
 
 def listen_data_from_jetson(client_socket, addr):
-    print('listen_data_from_jetson생성!')
-    a = 37.5665
+    print('success connected drone!')
     while True:
-        WSConsumer.data_from_drone.append(a)
-        time.sleep(2)
-        a = a * (1.000001)
-        print(WSConsumer.data_from_drone)
+        try:
+            # 데이터 수신
+            data = client_socket.recv(1024)
+
+            # 드론으로부터 아무 정보수신도 되지 않는다면
+            # 연결이 끊겼다고 생각하고 while문 나가기
+            if not data:
+                break
+            
+            # 디코딩된 문자열을 실수로변환
+            data = float(data.decode())
+            WSConsumer.data_from_drone.append(data)
+            
+            print(WSConsumer.data_from_drone)
+        except ConnectionResetError as e:
+            break
+
+    print('드론 연결 종료' + addr[0],':',addr[1]) # 예외발생시 젯슨과의 tcp연결 종료를 알리는 디벙깅용함수
+    client_socket.close() #젯슨 과의 클라이언트 연결 종료     
 
 
 if __name__ == '__main__':
-    #jetson으로부터 싫시간 수신대기하는 쓰레드생성
-    start_new_thread(listen_data_from_jetson, (0, 1))
+    # socket통신 세팅
+    HOST = '127.0.0.1'
+    PORT = 9999
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    server_socket.bind((HOST, PORT))
+    server_socket.listen()  # 프로젝트용 드론1개기준 socket접속대기
+    print('프로젝트용 드론 1대를 접속 대기중입니다...')
+    client_socket, addr = server_socket.accept()
+
+    # 프로젝트용 드론이 연결 되었다면..
+    # jetson으로부터 실시간 수신대기하는 쓰레드생성
+    start_new_thread(listen_data_from_jetson, (client_socket, addr))
     
     # django 서버 시작
     main()
