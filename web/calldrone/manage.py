@@ -33,11 +33,8 @@ def listen_data_from_jetson(client_socket, addr):
 
 
 if __name__ == '__main__':
-    """
-    드론 - 서버 소켓통신 시작하는 쓰레드 함수
-    WSconsumer 클래스의 변수(data_from_drone)에 접근하여 드론으로부터의 실시간 데이터를 전달해줄 수 있다.
-    """
+    #jetson으로부터 싫시간 수신대기하는 쓰레드생성
     start_new_thread(listen_data_from_jetson, (0, 1))
     
-    """django 서버 시작하는 함수"""
+    # django 서버 시작
     main()
