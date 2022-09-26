@@ -7,6 +7,7 @@ import time
 from _thread import *
 
 from app1.consumers import WSConsumer
+from app1.views import send_data_to_drone
 
 
 def main():
@@ -27,6 +28,14 @@ def listen_data_from_jetson(client_socket, addr):
     print('success connected drone!')
     while True:
         try:
+            # 사용자로부터 post요청이 들어왔을 때 드론으로 전송해준다.
+            if send_data_to_drone:
+                print(f'사용자로부터 목적지 정보를 제공받았습니다 {send_data_to_drone}')
+                message = send_data_to_drone[0]
+                client_socket.send(str(message).encode())
+                send_data_to_drone.clear()
+
+
             # 데이터 수신
             data = client_socket.recv(1024)
 
@@ -61,6 +70,6 @@ if __name__ == '__main__':
     # 프로젝트용 드론이 연결 되었다면..
     # jetson으로부터 실시간 수신대기하는 쓰레드생성
     start_new_thread(listen_data_from_jetson, (client_socket, addr))
-    
+
     # django 서버 시작
     main()
