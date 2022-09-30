@@ -46,3 +46,12 @@ while True:
     client_socket.send(str(message).encode())
     message *= 1.000001
     time.sleep(2)
+
+    # <주행에 필요한 정보>
+    # 라이다 정보
+    # 픽사호크로브부터 gps(x, y)
+
+    # <전송해야할 정보>
+    # 픽사호크로브부터 gps(x, y)
+    # 배터정보 받고
+    # 기울기 정보
