@@ -2,7 +2,7 @@
 
 <!-- header -->
 {% block header %}
-<div data-role="header">
+<div data-role="header" style="background-color: rgb(199, 213, 235)">
     <a href="/app1/page1" class="ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all">No text</a>
     <h1>호출</h1>
     <a href="/app1/page1" class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all">No text</a>
@@ -16,20 +16,21 @@
         <h1>목적지 등록</h1>
     </div>
 
-    <form action="/app1/page3" method="post">
+    <form action="/app1/page2" method="post">
+        {% csrf_token %}
         <div style="border:1px solid; color:red; margin-left: 50px; border-radius: 30px;
         margin-top:20px; margin-right: 50px; text-align : center; background-color: rgb(255, 255, 255);">
             <div style="color:red; margin: 20px;">
                 <p>
-                    <label for="name">목적지</label>
+                    <label for="name">광역시/시</label>
                     <input type="text" id="시" name="시">
                 </p>
             </div>
 
             <div style="color:red; margin: 20px;">
                 <p>
-                    <label for="email">구/군/면</label>
-                    <input type="text" id="군" name="군">
+                    <label for="email">도로명주소</label>
+                    <input type="text" id="도로명주소" name="도로명주소">
                 </p>
             </div>
 
