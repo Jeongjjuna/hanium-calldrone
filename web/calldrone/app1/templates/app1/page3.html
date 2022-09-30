@@ -14,13 +14,14 @@ border-bottom-right-radius:10px; border-bottom-left-radius:10px;">
 {% block content %}
 
     <div style="border:1px solid;">
-        <p>배송상태 : </p>
+        <p style = "text-align: center;" id="p1">배송상태 : 없음</p>
         <h1 id="app">{{text}}</h1>
     </div>
     
     <!-- 드론위치 지도에 표시 -->
     <div id = "map_bg">
-        <div id ="map" class="map"  style="border:2px solid; margin:0px; border-radius: 30px;"></div>
+        <div id ="map" class="map"  style="box-shadow: 1px 1px 1px 1px rgba(0.1, 0.1, 0.1, 0.2);
+        margin:0px; border-radius: 30px;"></div>
     </div>
     
 
@@ -31,6 +32,12 @@ border-bottom-right-radius:10px; border-bottom-left-radius:10px;">
         socket.onmessage = function(event){
             let data = JSON.parse(event.data);
             console.log(data);
+            console.log(data.message)
+
+            // 받는 좌표정보가 0일때, 즉 아직 사용자가 배송신청을 누르지 않았을 때
+            if (data.message != 0){
+                document.querySelector("#p1").innerHTML = '배송상태 : 배송 중';
+            }
             document.querySelector('#app').innerText = data.message;
 
             // -----------------------------------위,경도 좌표 지도에 표시 및 지도 출력-------------------------------------//
@@ -41,7 +48,7 @@ border-bottom-right-radius:10px; border-bottom-left-radius:10px;">
             };
             // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
             var map = new kakao.maps.Map(mapContainer, mapOption); 
-
+            
 
             var marker = new kakao.maps.Marker({ 
                 // 지도 중심좌표에 마커를 생성합니다 
