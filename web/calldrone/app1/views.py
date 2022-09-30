@@ -2,6 +2,21 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from collections import deque
+#--------------주소 -> 위경도바꾸는 함수--------
+import requests, json
+
+def get_location(address):
+    url = 'https://dapi.kakao.com/v2/local/search/address.json?query=' + address
+    # 'KaKaoAK '는 그대로 두시고 개인키만 지우고 입력해 주세요.
+    # ex) KakaoAK 6af8d4826f0e56c54bc794fa8a294
+    headers = {"Authorization": "KakaoAK 9f978728a234188af99c073236af7def"}
+    api_json = json.loads(str(requests.get(url,headers=headers).text))
+    address = api_json['documents'][0]['address']
+    crd = {"lat": str(address['y']), "lng": str(address['x'])}
+    address_name = address['address_name']
+
+    return crd
+
 
 send_data_to_drone = deque() #manage.py에서 함께 공유하는 변수
 
@@ -24,7 +39,24 @@ def page2(request):
 
         >>>>>> 사용자에게 최적 정보를 렌더링 해줘야함
     '''
-    send_data_to_drone.append('927.2447')
+
+    if request.method == 'POST':
+        city = request.POST['시']
+        address = request.POST['도로명주소']
+        detail_adress = request.POST['상세주소']
+        weight = request.POST['무게']
+        crd = get_location(city + address)
+
+        # 광주광역시 도산로 9번길 35
+        #{'lat': '35.1276555542395', 'lng': '126.790916656135'}
+        print(f'\n\n입력받은 주소 : {city + address}')
+        print(f'변환된 위,경도{crd}\n\n')
+        
+        # 드론으로 전송할 데이터를 넣어주기!!
+        send_data_to_drone.append(crd['lat']
+        )
+        return render(request, 'app1/page2.html')
+
     return render(request, 'app1/page2.html')
 
 def page3(request):
