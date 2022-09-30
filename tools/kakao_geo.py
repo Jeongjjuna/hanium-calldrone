@@ -13,5 +13,23 @@ def get_location(address):
 
     return crd
 
-crd = get_location("제주 애월읍")
+crd = get_location("광주광역시 도산로 9번길 35")
 print(crd)
+
+
+
+# 카카오API를 사용하여 좌표->주소 변환
+# import requests, json, pprint
+
+# def get_address(lat, lng):
+#     url = "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x="+lng+"&y="+lat
+#     # 'KaKaoAK '는 그대로 두시고 개인키만 지우고 입력해 주세요.
+#     # ex) KakaoAK 6af8d4826f0e56c54bc794fa8a294
+#     headers = {"Authorization": "KakaoAK 개인키"}
+#     api_json = requests.get(url, headers=headers)
+#     full_address = json.loads(api_json.text)
+
+#     return full_address
+
+# full_address = get_address('36.5760732781656', '128.15935928504484')
+# pprint.pprint(full_address)
