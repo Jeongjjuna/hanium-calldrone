@@ -19,16 +19,16 @@ border-bottom-right-radius:10px; border-bottom-left-radius:10px;">
 
     <form action="/app1/page2" method="post">
         {% csrf_token %}
-        <div style="border:1px solid; color:red; margin-left: 50px; border-radius: 30px;
-        margin-top:20px; margin-right: 50px; text-align : center; background-color: rgb(255, 255, 255);">
-            <div style="color:red; margin: 20px;">
+        <div style="box-shadow: 1px 1px 1px 1px rgba(0.1, 0.1, 0.1, 0.2); margin-left: 50px; border-radius: 30px;
+        margin-top:10px; margin-right: 50px; text-align : center; background-color: rgb(255, 255, 255); padding: 10px;">
+            <div style="color:rgb(0, 0, 0); margin: 20px;">
                 <p>
                     <label for="name">광역시/시</label>
                     <input type="text" id="시" name="시">
                 </p>
             </div>
 
-            <div style="color:red; margin: 20px;">
+            <div style="color:rgb(203, 197, 255); margin: 20px;">
                 <p>
                     <label for="email">도로명주소</label>
                     <input type="text" id="도로명주소" name="도로명주소">
@@ -43,9 +43,9 @@ border-bottom-right-radius:10px; border-bottom-left-radius:10px;">
             </div>
         </div>
         
-        <div style="border:1px solid; color:blue; margin-left: 50px; margin-right: 50px; border-radius: 30px;
-        margin-top:10px; text-align : center; background-color: rgb(255, 255, 255);">
-            <div style="color:red; margin: 20px;">
+        <div style="box-shadow: 1px 1px 1px 1px rgba(0.1, 0.1, 0.1, 0.2); margin-left: 50px; margin-right: 50px; border-radius: 30px;
+        margin-top:10px; margin-top:30px; text-align : center; background-color: rgb(255, 255, 255);">
+            <div style="color:red; margin: 20px; padding: 20px;">
                 <p>
                     <label for="name">배송할 배송품 무게</label>
                     <input type="text" id="무게" name="무게">
