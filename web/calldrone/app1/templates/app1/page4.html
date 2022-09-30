@@ -11,50 +11,34 @@
 
 <!-- main -->
 {% block content %}
-    <div>
-        <div>
-            <div>프로필이미지</div>
-            <div>
-                <h1>이름</h1>
-                <h1>전화번호</h1>
-            </div>
+    <div style="border:1px solid">
+        <div style="border:1px solid; color:red; float: left;">
+            <img src="/static/app1/css/images/icons-png/info-black.png">
+        </div>
+        <div style="margin-top: 50px; border:1px solid; margin:0px; margin-left: 70px;">
+            <h1>정지훈</h1>
+            <h1>010-1234-5678</h1>
         </div>
     </div>
 
-    <div class="controller-box">
+    <div class="controller-box"  style="margin-top: 50px; border:1px solid; text-align:center;">
         <div data-role="controlgroup" data-type="horizontal">
             <a href="#" data-role="button">실버등급</a>
             <a href="#" data-role="button">나의배지</a>
         </div>
     </div>
 
-    <div>
-        <div>
-            <div>아이콘</div>
-            <div>공지/이벤트</div>
-            <div>아이콘</div>
-        </div>
-        <div>
-            <div>아이콘</div>
-            <div>공지/이벤트</div>
-            <div>아이콘</div>
-        </div>
-        <div>
-            <div>아이콘</div>
-            <div>공지/이벤트</div>
-            <div>아이콘</div>
-        </div>
-        <div>
-            <div>아이콘</div>
-            <div>공지/이벤트</div>
-            <div>아이콘</div>
-        </div>
-        <div>
-            <div>아이콘</div>
-            <div>공지/이벤트</div>
-            <div>아이콘</div>
-        </div>
+
+    <div style="margin-top: 150px; border:1px solid">
+        <ul data-role="listview" data-inset="true">
+            <li><a href="#"><img src="/static/app1/css/images/icons-png/info-black.png"  class="ui-li-icon ui-corner-none">공지/이벤트</a></li>
+            <li><a href="#"><img src="/static/app1/css/images/icons-png/bars-black.png"  class="ui-li-icon">이용기록</a></li>
+            <li><a href="#"><img src="/static/app1/css/images/icons-png/bullets-black.png"  class="ui-li-icon">결제수단 관리</a></li>
+            <li><a href="#"><img src="/static/app1/css/images/icons-png/heart-black.png"  class="ui-li-icon">포인트</a></li>
+            <li><a href="#"><img src="/static/app1/css/images/icons-png/star-black.png"  class="ui-li-icon ui-corner-none">쿠폰함</a></li>
+        </ul>
     </div>
+
 {% endblock %}
 
 <!-- footer -->

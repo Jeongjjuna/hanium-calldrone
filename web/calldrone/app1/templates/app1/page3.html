@@ -11,14 +11,15 @@
 
 <!-- main -->
 {% block content %}
-    <p>배송상태 : </p>
 
-
-    <h1 id="app">{{text}}</h1>
-
+    <div style="border:1px solid;">
+        <p>배송상태 : </p>
+        <h1 id="app">{{text}}</h1>
+    </div>
+    
     <!-- 드론위치 지도에 표시 -->
-    <div id = "map_bg">
-        <div id ="map" class="map"></div>
+    <div id = "map_bg" style="border:1px solid;">
+        <div id ="map" class="map"  style="border:1px solid; margin:0px"></div>
     </div>
     
 
@@ -48,8 +49,8 @@
             marker.setMap(map);
             // ---------------------------------------------------------------------------------//
         }
-
     </script>
+
 {% endblock %}
 
 <!-- footer -->

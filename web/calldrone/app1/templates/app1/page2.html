@@ -11,10 +11,13 @@
 
 <!-- main -->
 {% block content %}
-<div>
+<div style="border:5px solid;">
+    <div style="border:5px solid; color:palegreen; text-align : center;">
+        <h1>목적지 등록</h1>
+    </div>
+
     <form action="/app1/page3" method="post">
-        <div>
-            <h1>목적지 등록</h1>
+        <div style="border:1px solid; color:red; margin-left: 50px; margin-right: 50px; text-align : center;">
             <p>
                 <label for="name">목적지</label>
                 <input type="text" id="시" name="시">
@@ -29,7 +32,7 @@
             </p>
         </div>
         
-        <div>
+        <div style="border:1px solid; color:blue; margin-left: 50px; margin-right: 50px; text-align : center;">
             <p>
                 <label for="name">배송할 배송품 무게</label>
                 <input type="text" id="무게" name="무게">
