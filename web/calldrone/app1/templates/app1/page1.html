@@ -2,11 +2,16 @@
 
 <!-- header -->
 {% block header %}
-    <h1>홈</h1> 
+<div data-role="header">
+    <a href="/app1/page1" class="ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all">No text</a>
+    <h1>홈</h1>
+    <a href="/app1/page1" class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all">No text</a>
+</div>
 {% endblock %}
 
 <!-- main -->
-{% block content %} 
+{% block content %}
+<img src="/static/app1/css/images/main_img.png" width="360" height="650">
 {% endblock %}
 
 <!-- footer -->
