@@ -48,7 +48,7 @@ def listen_data_from_jetson(client_socket, addr):
             # 디코딩된 문자열을 실수로변환
             data = data.decode()
             x, y = data.split()
-            WSConsumer.data_from_drone.append(float(x))
+            WSConsumer.data_from_drone.append((x, y))
             
             print(WSConsumer.data_from_drone)
         except ConnectionResetError as e:
