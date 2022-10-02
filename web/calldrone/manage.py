@@ -24,6 +24,7 @@ def main():
     execute_from_command_line(sys.argv)
 
 
+
 def listen_data_from_jetson(client_socket, addr):
     print('success connected drone!')
     while True:
@@ -32,9 +33,9 @@ def listen_data_from_jetson(client_socket, addr):
             if send_data_to_drone:
                 print(f'사용자로부터 목적지 정보를 제공받았습니다 {send_data_to_drone}')
                 message = send_data_to_drone[0]
+                # message = '35.1276555542395 126.790916656135'
                 client_socket.send(str(message).encode())
                 send_data_to_drone.clear()
-
 
             # 데이터 수신
             data = client_socket.recv(1024)
@@ -58,7 +59,11 @@ def listen_data_from_jetson(client_socket, addr):
 
 if __name__ == '__main__':
     # socket통신 세팅
+    
     HOST = '127.0.0.1'
+    # HOST = socket.gethostbyname(socket.gethostname())
+    print(HOST)
+    # HOST = '168.131.153.213' 
     PORT = 9999
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -70,6 +75,7 @@ if __name__ == '__main__':
     # 프로젝트용 드론이 연결 되었다면..
     # jetson으로부터 실시간 수신대기하는 쓰레드생성
     start_new_thread(listen_data_from_jetson, (client_socket, addr))
+    #start_new_thread(send_data_to_jetson, (client_socket, addr))
 
     # django 서버 시작
     main()

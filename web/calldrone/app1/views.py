@@ -53,8 +53,8 @@ def page2(request):
         print(f'변환된 위,경도{crd}\n\n')
         
         # 드론으로 전송할 데이터를 넣어주기!!
-        send_data_to_drone.append(crd['lat']
-        )
+        # '35.1276555542395 126.790916656135'
+        send_data_to_drone.append(crd['lat']+' '+crd['lng'])
         return render(request, 'app1/page2.html')
 
     return render(request, 'app1/page2.html')
