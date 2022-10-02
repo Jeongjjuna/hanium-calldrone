@@ -23,6 +23,10 @@ class WSConsumer(AsyncWebsocketConsumer):
         self.data_from_drone.clear()
 
         while True:
-            if self.data_from_drone:
-                await self.send(json.dumps({'message' : self.data_from_drone.popleft()}))
-                await sleep(2)
+            try:
+                if self.data_from_drone:
+                    await self.send(json.dumps({'message' : self.data_from_drone.popleft()}))
+                    await sleep(2)
+            except:
+                break
+        print('connect함수 종료')
