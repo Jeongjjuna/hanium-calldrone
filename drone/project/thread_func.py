@@ -1,7 +1,6 @@
-import PyLidar2
+#import PyLidar2
 import cv2
 import time
-
 
 # camera
 def camera(a, b):
@@ -52,23 +51,3 @@ def lidar(a, b):
         print('ended3')
         Obj.StopScanning()
         Obj.Disconnect()
-
-
-
-def listen_data_from_django(client_socket):
-    print('success connected server!')
-    while True:
-        try:
-
-            data = client_socket.recv(1024)
-
-            if not data:
-                break
-            
-            data = float(data.decode())
-            print(data)
-        except ConnectionResetError as e:
-            break
-
-    print('django ended!!')
-    client_socket.close()
