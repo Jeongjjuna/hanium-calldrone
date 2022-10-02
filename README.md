@@ -14,7 +14,8 @@ python : 3.9.12 version
 # Design: css등 사용자 UI디자인 변경
 # Style : 코드 포맷변경, 세미 콜론 누락, 코드 수정이 없는 경우
 # Refactor : 리팩토링
-# Docs : 문서를 수정한 경우(주석처리같은 경우)
+# Comment : 주석처리한 경우
+# Docs : 문서를 수정한 경우
 # Test : 테스트 추가
 # Rename : 파일 혹은 폴더 명을 수정하거나 옮기는 작업
 # Remove : 파일을 삭제하는 작업만 수행한 경우

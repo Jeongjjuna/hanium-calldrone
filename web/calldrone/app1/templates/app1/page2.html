@@ -1,46 +1,61 @@
 {% extends './base.html' %}
 
 <!-- header -->
-
+{% block header %}
+<div data-role="header" style="background-color: rgb(199, 213, 235);
+border-bottom-right-radius:10px; border-bottom-left-radius:10px;">
+    <a href="/app1/page1" class="ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all">No text</a>
+    <h1>호출</h1>
+    <a href="/app1/page1" class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all">No text</a>
+</div>
+{% endblock %}
 
 <!-- main -->
 {% block content %}
-<div>
-    <form action="/app1/page3" method="post">
-        <div>
-            <h1>목적지 등록</h1>
-            <p>
-                <label for="name">목적지</label>
-                <input type="text" id="시" name="시">
-            </p>
-            <p>
-                <label for="email">구/군/면</label>
-                <input type="text" id="군" name="군">
-            </p>
-            <p>
-                <label for="email">상세주소</label>
-                <input type="text" id="상세주소" name="상세주소">
-            </p>
+<div style="background-color: rgb(239, 243, 252); height: 583px;">
+    <div style="text-align : center;">
+        <h1>목적지 등록</h1>
+    </div>
+
+    <form action="/app1/page2" method="post">
+        {% csrf_token %}
+        <div style="box-shadow: 1px 1px 1px 1px rgba(0.1, 0.1, 0.1, 0.2); margin-left: 50px; border-radius: 30px;
+        margin-top:10px; margin-right: 50px; text-align : center; background-color: rgb(255, 255, 255); padding: 10px;">
+            <div style="color:rgb(0, 0, 0); margin: 20px;">
+                <p>
+                    <label for="name">광역시/시</label>
+                    <input type="text" id="시" name="시">
+                </p>
+            </div>
+
+            <div style="color:rgb(203, 197, 255); margin: 20px;">
+                <p>
+                    <label for="email">도로명주소</label>
+                    <input type="text" id="도로명주소" name="도로명주소">
+                </p>
+            </div>
+
+            <div style="color:red; margin: 20px;">
+                <p>
+                    <label for="email">상세주소</label>
+                    <input type="text" id="상세주소" name="상세주소">
+                </p>
+            </div>
         </div>
         
-        <div>
-            <h1>페이로드 정보</h1>
-            <p>
-                <label for="name">배송품 무게</label>
-                <input type="text" id="무게" name="무게">
-            </p>
-            <p>
-                <label for="email">배송 속도</label>
-                <input type="text" id="속도" name="속도">
-            </p>
-            <input type="submit" value="제출하기">
+        <img style="position:absolute; left:277px; top: 400px;" src="/static/app1/css/images/load-34.gif" width="70" height="70">
+        <div style="position: relative; box-shadow: 1px 1px 1px 1px rgba(0.1, 0.1, 0.1, 0.2); margin-left: 50px; margin-right: 50px; border-radius: 30px;
+        margin-top:10px; margin-top:30px; text-align : center; background-color: rgb(255, 255, 255);">
+            <div style="color:red; margin: 20px; padding: 20px;">
+                <p>
+                    <label for="name">배송할 배송품 무게</label>
+                    <input type="text" id="무게" name="무게">
+                </p>
+                <input type="submit" value="제출하기">
+            </div>
         </div>
     </form>
 </div>  
 {% endblock %}
 
-
 <!-- footer -->
-{% block footer %}
-    <h1>호출</h1> 
-{% endblock %}
