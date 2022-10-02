@@ -23,6 +23,10 @@ class WSConsumer(AsyncWebsocketConsumer):
         self.data_from_drone.clear()
 
         while True:
+            if 'stop' in self.data_from_drone:
+                self.data_from_drone.clear()
+                break
+
             if self.data_from_drone:
                 await self.send(json.dumps({'message' : self.data_from_drone.popleft()}))
                 await sleep(2)
