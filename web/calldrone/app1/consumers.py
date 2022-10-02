@@ -22,11 +22,20 @@ class WSConsumer(AsyncWebsocketConsumer):
         print('위치정보갱신')
         self.data_from_drone.clear()
 
+        # 클링러 후 WHILE문 바로 진입시 len(self.data_from_drone) == 0:에 바로 걸리기 때문에 텀을 주고 진입
+        await sleep(3)
+
         while True:
+            # 사용자가 다른페이지로 GET요청시 빠져나가기
             if 'stop' in self.data_from_drone:
                 self.data_from_drone.clear()
                 break
-
+            
+            # 들어온은 좌표값이 있의면 브라우저로 보내주기
             if self.data_from_drone:
                 await self.send(json.dumps({'message' : self.data_from_drone.popleft()}))
                 await sleep(2)
+
+            # 들어오는 좌표값이 없을 때 == 즉 아직 배송중 상태일 때
+            if len(self.data_from_drone) == 0:
+                break
