@@ -15,8 +15,9 @@ def listen_data_from_django(client_socket):
                 break
             
             # 디코딩된 문자열을 실수로변환
-            data = float(data.decode())
-            print(data)
+            data = data.decode()
+            x, y = map(float, data.split())
+            print(x, y)
         except ConnectionResetError as e:
             break
 
@@ -26,7 +27,8 @@ def listen_data_from_django(client_socket):
 
 
 # 서버의 주소입니다. hostname 또는 ip address를 사용할 수 있습니다.
-HOST = '127.0.0.1'  
+HOST = '127.0.0.1'
+#HOST = '168.131.153.213'  
 PORT = 9999       
 
 # 소켓 객체를 생성합니다. 
@@ -42,6 +44,7 @@ start_new_thread(listen_data_from_django, (client_socket, ))
 
 # gps값을 2초마다 한번씩 전송한다.
 message = 37.5665
+#message = 0
 while True: 
     client_socket.send(str(message).encode())
     message *= 1.000001

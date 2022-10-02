@@ -1,7 +1,9 @@
-import PyLidar2
+#import PyLidar2
 import cv2
 import time
+from collections import deque
 
+target_q = deque()
 
 # camera
 def camera(a, b):
@@ -56,6 +58,7 @@ def lidar(a, b):
 
 
 def listen_data_from_django(client_socket):
+    global target_q
     print('success connected server!')
     while True:
         try:
@@ -65,7 +68,9 @@ def listen_data_from_django(client_socket):
             if not data:
                 break
             
-            data = float(data.decode())
+            #'35.1276555542395 126.790916656135'
+            data = data.decode()
+            target_q.append(data)
             print(data)
         except ConnectionResetError as e:
             break
