@@ -7,40 +7,43 @@ from collections import deque
 #import cv2
 import time
 
-ladar_q = deque()
+lidar_q = deque()
 
 # lidar
 def lidar(a, b):
     global lidar_q
 
-    port = "/dev/ttyUSB0" #linux
-    Obj = PyLidar2.YdLidarX4(port)
-    try:
-        if(Obj.Connect()):
-            print(Obj.GetDeviceInfo())
-            gen = Obj.StartScanning()
-            t = 0
-            while t < 500: #scan for 30 seconds
-                print(gen)
-                data = next(gen)
+    # port = "/dev/ttyUSB0" #linux
+    # Obj = PyLidar2.YdLidarX4(port)
+    # try:
+    #     if(Obj.Connect()):
+    #         print(Obj.GetDeviceInfo())
+    #         gen = Obj.StartScanning()
+    #         t = 0
+    #         while t < 500: #scan for 30 seconds
+    #             print(gen)
+    #             data = next(gen)
                 
-                lidar_q.append(data[0])
-                print(data[0])
+    #             lidar_q.append(data[0])
+    #             print(data[0])
 
-                #time.sleep(2)
-                t += 1
-            Obj.StopScanning()
-            Obj.Disconnect()
-            print('ended1')
-        else:
-            print('ended2')
-            print("Error connecting to device")
-            Obj.StopScanning()
-            Obj.Disconnect()
-    except:
-        print('ended3')
-        Obj.StopScanning()
-        Obj.Disconnect()
+    #             #time.sleep(2)
+    #             t += 1
+    #         Obj.StopScanning()
+    #         Obj.Disconnect()
+    #         print('ended1')
+    #     else:
+    #         print('ended2')
+    #         print("Error connecting to device")
+    #         Obj.StopScanning()
+    #         Obj.Disconnect()
+    # except:
+    #     print('ended3')
+    #     Obj.StopScanning()
+    #     Obj.Disconnect()
+    while True:
+        lidar_q.append(2000)
+        time.sleep(2)
 
 
 
@@ -93,6 +96,8 @@ target_q = deque()
 
 
 def moving(client_socket, lat, lon, alt):
+    global lidar_q
+
     print("\nGoing towards point1")
     print(f'moving : {lat}, {lon}')
 
@@ -120,8 +125,8 @@ def moving(client_socket, lat, lon, alt):
         #    break
         
         #-----------------------ladar_q 값확인------------------------------------------
-        if len(ladar_q)>0:
-            dist = ladar_q.popleft()
+        if len(lidar_q)>0:
+            dist = lidar_q.popleft()
             if dist < 3000:
                 # Auto모드로 변경
 
@@ -132,8 +137,8 @@ def moving(client_socket, lat, lon, alt):
                 #point1 = LocationGlobalRelative(lat, lon, alt)
                 #vehicle.simple_goto(point1)
 
-
-        time.sleep(2)
+        print(dist)
+        time.sleep(1)
 
 
 # def returning():
@@ -199,61 +204,61 @@ client_socket.connect((HOST, PORT))
 
 
 #start_new_thread(camera, (0, 0))
-#start_new_thread(lidar, (0, 0))
+start_new_thread(lidar, (0, 0))
 start_new_thread(listen_data_from_django, (client_socket, ))
 
-try:
-    '''
-    # Connect to the vehicle
-    vehicle = connect('tcp:127.0.0.1:5762',
-                    wait_ready=True, heartbeat_timeout=15)
+# -----------------------
+'''
+# Connect to the vehicle
+vehicle = connect('tcp:127.0.0.1:5762',
+                wait_ready=True, heartbeat_timeout=15)
 
-    # Arm vehicle
-    arm()
+# Arm vehicle
+arm()
 
-    '''
+'''
 
-    # 목적지 좌표를 전송 받으면 이륙
-    message = '0 0'
-    while True:
-        client_socket.send(message.encode())
-        time.sleep(2)
-        print(target_q)
+# 목적지 좌표를 전송 받으면 이륙
+message = '0 0'
+while True:
+    client_socket.send(message.encode())
+    time.sleep(2)
+    print(target_q)
 
-        if len(target_q) == 1:
-            data = target_q[0]
-            target_x, target_y = data.split()
-            break
+    if len(target_q) == 1:
+        data = target_q[0]
+        target_x, target_y = data.split()
+        break
 
-        # if len(target_q) != 0:
-        #     data = target_q.pop()
-        #     target_x, target_y = map(float, data.split())
-        #     print(target_x, target_y)
-        #     break
-    
-    '''
-    # Takeoff vehicle
-    takeoffing(10)
+    # if len(target_q) != 0:
+    #     data = target_q.pop()
+    #     target_x, target_y = map(float, data.split())
+    #     print(target_x, target_y)
+    #     break
 
-    # Set airspeed
-    print("Set airspeed to 10")
-    vehicle.airspeed = 10
-    '''
+'''
+# Takeoff vehicle
+takeoffing(10)
 
-    # Move vehicle
-    moving(client_socket, target_x, target_y, 10)
+# Set airspeed
+print("Set airspeed to 10")
+vehicle.airspeed = 10
+'''
 
-    # Return vehicle
-    returning()
+# Move vehicle
+moving(client_socket, target_x, target_y, 10)
 
-    # Close vehicle
-    print("\nClose vehicle")
-    vehicle.close()
+# Return vehicle
+returning()
 
-except:
-    print('\nSome other error!')
+# Close vehicle
+print("\nClose vehicle")
+vehicle.close()
 
-    #returning()
+#---except
+print('\nSome other error!')
 
-    print("\nClose vehicle")
-    #vehicle.close()
+#returning()
+
+print("\nClose vehicle")
+#vehicle.close()
