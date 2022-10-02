@@ -3,6 +3,47 @@ import time
 from _thread import *
 from collections import deque
 
+#import PyLidar2
+#import cv2
+import time
+
+ladar_q = deque()
+
+# lidar
+def lidar(a, b):
+    global lidar_q
+
+    port = "/dev/ttyUSB0" #linux
+    Obj = PyLidar2.YdLidarX4(port)
+    try:
+        if(Obj.Connect()):
+            print(Obj.GetDeviceInfo())
+            gen = Obj.StartScanning()
+            t = 0
+            while t < 500: #scan for 30 seconds
+                print(gen)
+                data = next(gen)
+                
+                lidar_q.append(data[0])
+                print(data[0])
+
+                #time.sleep(2)
+                t += 1
+            Obj.StopScanning()
+            Obj.Disconnect()
+            print('ended1')
+        else:
+            print('ended2')
+            print("Error connecting to device")
+            Obj.StopScanning()
+            Obj.Disconnect()
+    except:
+        print('ended3')
+        Obj.StopScanning()
+        Obj.Disconnect()
+
+
+
 target_q = deque()
 #from thread_func import *
 
@@ -54,32 +95,45 @@ target_q = deque()
 def moving(client_socket, lat, lon, alt):
     print("\nGoing towards point1")
     print(f'moving : {lat}, {lon}')
-    while True:
-        d = str(lat) + ' ' + str(lon)
-        client_socket.send(d.encode())
-        time.sleep(2)
-        pass
 
     # Move vehicle
-    point1 = LocationGlobalRelative(lat, lon, alt)
-    vehicle.simple_goto(point1)
+    #point1 = LocationGlobalRelative(lat, lon, alt)
+    #vehicle.simple_goto(point1)
 
+
+    d = str(lat) + ' ' + str(lon)
+    client_socket.send(d.encode())
+    time.sleep(2)
     # Wait until complete
     while True:
-        print("Altitude:", vehicle.location.global_relative_frame.lat)
-        print("Longitude:", vehicle.location.global_relative_frame.lon)
-        x = str(vehicle.location.global_relative_frame.lat)
-        y = str(vehicle.location.global_relative_frame.lon)
-        data = x + ' ' + y
-        client_socket.send(data.encode())
+        # ------------------------------실시간 좌표 전송--------------
+        #print("Altitude:", vehicle.location.global_relative_frame.lat)
+        #print("Longitude:", vehicle.location.global_relative_frame.lon)
+        #x = str(vehicle.location.global_relative_frame.lat)
+        #y = str(vehicle.location.global_relative_frame.lon)
+        #data = x + ' ' + y
+        #client_socket.send(data.encode())
         
-        if ((vehicle.location.global_relative_frame.lat >= point1.lat*0.9999995) and (vehicle.location.global_relative_frame.lat <= point1.lat*1.0000005)) and ((vehicle.location.global_relative_frame.lon >= point1.lon*0.999999995) and (vehicle.location.global_relative_frame.lon <= point1.lon*1.0000005)):
-            print("Reached target place!")
-            break
-        if ((vehicle.location.global_relative_frame.lat >= point1.lat*0.9999995) and (vehicle.location.global_relative_frame.lat <= point1.lat*1.0000005)) and ((vehicle.location.global_relative_frame.lon >= point1.lon*0.999999995) and (vehicle.location.global_relative_frame.lon <= point1.lon*1.0000005)):
-            print("Reached target place!")
-            break
-        time.sleep(1)
+        # ------------------------------도착 종료 조건 확인---------------
+        #if ((vehicle.location.global_relative_frame.lat >= point1.lat*0.9999995) and (vehicle.location.global_relative_frame.lat <= point1.lat*1.0000005)) and ((vehicle.location.global_relative_frame.lon >= point1.lon*0.999999995) and (vehicle.location.global_relative_frame.lon <= point1.lon*1.0000005)):
+        #    print("Reached target place!")
+        #    break
+        
+        #-----------------------ladar_q 값확인------------------------------------------
+        if len(ladar_q)>0:
+            dist = ladar_q.popleft()
+            if dist < 3000:
+                # Auto모드로 변경
+
+                while (dist > 3000):
+                    # 좌 혹은 우로 이동하기 명령(한 2미터정도는 이동하도록해야될듯)
+                    pass
+                # 다시 목표지점으로 이동설정
+                #point1 = LocationGlobalRelative(lat, lon, alt)
+                #vehicle.simple_goto(point1)
+
+
+        time.sleep(2)
 
 
 # def returning():

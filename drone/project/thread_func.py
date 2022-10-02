@@ -34,7 +34,8 @@ def lidar(a, b):
             while t < 500: #scan for 30 seconds
                 print(gen)
                 data = next(gen)
-            
+                
+                data[0]
                 print(data[0])
 
                 #time.sleep(2)
