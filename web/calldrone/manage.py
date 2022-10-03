@@ -30,7 +30,7 @@ def listen_data_from_jetson(client_socket, addr):
     while True:
         try:
             # 사용자로부터 post요청이 들어왔을 때 드론으로 전송해준다.
-            if send_data_to_drone:
+            if send_data_to_drone and 'start' in send_data_to_drone:
                 print(f'사용자로부터 목적지 정보를 제공받았습니다 {send_data_to_drone}')
                 message = send_data_to_drone[0]
                 # message = '35.1276555542395 126.790916656135'
