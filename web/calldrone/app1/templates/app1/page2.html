@@ -2,60 +2,49 @@
 
 <!-- header -->
 {% block header %}
-<div data-role="header" style="background-color: rgb(199, 213, 235);
-border-bottom-right-radius:10px; border-bottom-left-radius:10px;">
-    <a href="/app1/page1" class="ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all">No text</a>
-    <h1>호출</h1>
-    <a href="/app1/page1" class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all">No text</a>
-</div>
+
 {% endblock %}
 
 <!-- main -->
 {% block content %}
-<div style="background-color: rgb(239, 243, 252); height: 583px;">
-    <div style="text-align : center;">
-        <h1>목적지 등록</h1>
-    </div>
+<a href="/app1/page1"><img src="/static/app1/css/images/Map/Map_Small.png" style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 15px;"></a>
 
-    <form action="/app1/page2" method="post">
-        {% csrf_token %}
-        <div style="box-shadow: 1px 1px 1px 1px rgba(0.1, 0.1, 0.1, 0.2); margin-left: 50px; border-radius: 30px;
-        margin-top:10px; margin-right: 50px; text-align : center; background-color: rgb(255, 255, 255); padding: 10px;">
-            <div style="color:rgb(0, 0, 0); margin: 20px;">
-                <p>
-                    <label for="name">광역시/시</label>
-                    <input type="text" id="시" name="시">
-                </p>
-            </div>
 
-            <div style="color:rgb(0, 0, 0); margin: 20px;">
-                <p>
-                    <label for="email">도로명주소</label>
-                    <input type="text" id="도로명주소" name="도로명주소">
-                </p>
-            </div>
-
-            <div style="color:rgb(0, 0, 0); margin: 20px;">
-                <p>
-                    <label for="email">상세주소</label>
-                    <input type="text" id="상세주소" name="상세주소">
-                </p>
-            </div>
+<form action="/app1/page2" method="post">
+    {% csrf_token %}
+    <!-- margin-left: 50px; margin-top:10px; margin-right: 50px; text-align : center; background-color: rgb(255, 255, 255); padding: 10px; -->
+    
+    <div style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 200px; text-align : center;">
+        <div>
+            <p>
+                <input type="text" id="시" name="시" placeholder="광역시/시" style = "background-color: #28333F; border-radius: 5px;">
+            </p>
         </div>
+
+        <div style="color:rgb(0, 0, 0); margin: 20px;">
+            <p>
+                <input type="text" id="도로명주소" name="도로명주소" placeholder="도로명주소" style = "background-color: #28333F; border-radius: 5px;">
+            </p>
+        </div>
+
+        <div style="color:rgb(0, 0, 0); margin: 20px;">
+            <p>
+                <input type="text" id="상세주소" name="상세주소" placeholder="상세주소" style = "background-color: #28333F; border-radius: 5px;">
+            </p>
+        </div>
+
+        <div style="color:rgb(0, 0, 0); margin: 20px;">
+            <p>
+                <input type="text" id="상세주소" name="상세주소" placeholder="배송품무게" style = "background-color: #28333F; border-radius: 5px;">
+            </p>
+        </div>
+        <!--<img src="/static/app1/css/images/Delivery/Delivery_Frame.png" style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 230px;">-->
+        <button type="submit" style="width: 181px; height: 71px; margin: 0px; padding: 0px;">
+            <img src="/static/app1/css/images/Delivery/Delivery_Frame.png">
+        </button>
+        <!-- <input type="submit" value="" style="background-image: url(/static/app1/css/images/Delivery/Delivery_Frame.png); "> -->
         
-        <img style="position:absolute; left:277px; top: 400px;" src="/static/app1/css/images/load-34.gif" width="70" height="70">
-        <div style="position: relative; box-shadow: 1px 1px 1px 1px rgba(0.1, 0.1, 0.1, 0.2); margin-left: 50px; margin-right: 50px; border-radius: 30px;
-        margin-top:10px; margin-top:30px; text-align : center; background-color: rgb(255, 255, 255);">
-            <div style="color:red; margin: 20px; padding: 20px;">
-                <p>
-                    <label for="name">배송할 배송품 무게</label>
-                    <input type="text" id="무게" name="무게">
-                </p>
-                <input type="submit" value="제출하기">
-            </div>
-        </div>
-    </form>
-</div>  
-{% endblock %}
+    </div>
+</form>
 
-<!-- footer -->
+{% endblock %}

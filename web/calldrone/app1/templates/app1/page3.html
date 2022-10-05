@@ -2,25 +2,25 @@
 
 <!-- header -->
 {% block header %}
-<div data-role="header" style="background-color: rgb(199, 213, 235);
-border-bottom-right-radius:10px; border-bottom-left-radius:10px;">
-    <a href="/app1/page1" class="ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all">No text</a>
-    <h1>알림</h1>
-    <a href="/app1/page1" class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all">No text</a>
-</div>
 {% endblock %}
 
 <!-- main -->
 {% block content %}
+<a href="/app1/page1"><img src="/static/app1/css/images/Map/Map_Small.png" style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 15px;"></a>
+
+
+<img src="/static/app1/css/images/Map/Map_Icon.png" style="position: absolute; left: 28px; top: 60px;">
+<img src="/static/app1/css/images/Map/Map_Headline.png" style="position: absolute; left: 160px; top: 80px;">
+
 
 <div>
-    <p style = "text-align: center;" id="p1">배송상태 : 없음</p>
+    <p style = "text-align: center; color: aliceblue;" id="p1">배송상태 : 없음</p>
     <!-- <h1 id="app">{{text}}</h1> -->
 </div>
 
 <!-- 드론위치 지도에 표시 -->
-<div id = "map_bg">
-    <div id ="map" class="map"  style="box-shadow: 1px 1px 1px 1px rgba(0.1, 0.1, 0.1, 0.2);
+<div id = "map_bg" style="margin-top: 130px;">
+    <div id ="map" class="map"  style="background: linear-gradient(#28333F, rgb(71, 66, 67)); box-shadow: 1.5px 0.5px 0.5px 1.5px rgba(54, 68, 119, 0.986);
     margin:0px; border-radius: 30px;"></div>
 </div>
 
