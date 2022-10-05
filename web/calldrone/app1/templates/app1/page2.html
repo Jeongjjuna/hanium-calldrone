@@ -9,42 +9,33 @@
 {% block content %}
 <a href="/app1/page1"><img src="/static/app1/css/images/Map/Map_Small.png" style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 15px;"></a>
 
+<img src="/static/app1/css/images/Delivery/Delivery_Icon.png" style="position: absolute; left: 50px; top: 100px;">
+<img src="/static/app1/css/images/Delivery/Delivery_Headline.png" style="position: absolute; left: 160px; top: 120px;">
+
 
 <form action="/app1/page2" method="post">
     {% csrf_token %}
-    <!-- margin-left: 50px; margin-top:10px; margin-right: 50px; text-align : center; background-color: rgb(255, 255, 255); padding: 10px; -->
-    
-    <div style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 200px; text-align : center;">
-        <div>
-            <p>
-                <input type="text" id="시" name="시" placeholder="광역시/시" style = "background-color: #28333F; border-radius: 5px;">
-            </p>
+    <div style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 200px; text-align: center;">
+        <div style="margin: 20px;">
+            <input style="border-style:solid; border-width:0px; border-radius: 10px; width: 300px; height: 50px; background-color: #2e3e4e;" type="text" id="시" name="시" placeholder="  시/광역시">
         </div>
 
-        <div style="color:rgb(0, 0, 0); margin: 20px;">
-            <p>
-                <input type="text" id="도로명주소" name="도로명주소" placeholder="도로명주소" style = "background-color: #28333F; border-radius: 5px;">
-            </p>
+        <div style="margin: 20px;">
+            <input style="border-style:solid; border-width:0px; border-radius: 10px; width: 300px; height: 50px; background-color: #2e3e4e;" type="text" id="도로명주소" name="도로명주소" placeholder="  도로명주소">
         </div>
-
-        <div style="color:rgb(0, 0, 0); margin: 20px;">
-            <p>
-                <input type="text" id="상세주소" name="상세주소" placeholder="상세주소" style = "background-color: #28333F; border-radius: 5px;">
-            </p>
-        </div>
-
-        <div style="color:rgb(0, 0, 0); margin: 20px;">
-            <p>
-                <input type="text" id="상세주소" name="상세주소" placeholder="배송품무게" style = "background-color: #28333F; border-radius: 5px;">
-            </p>
-        </div>
-        <!--<img src="/static/app1/css/images/Delivery/Delivery_Frame.png" style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 230px;">-->
-        <button type="submit" style="width: 181px; height: 71px; margin: 0px; padding: 0px;">
-            <img src="/static/app1/css/images/Delivery/Delivery_Frame.png">
-        </button>
-        <!-- <input type="submit" value="" style="background-image: url(/static/app1/css/images/Delivery/Delivery_Frame.png); "> -->
         
+        <div style="margin: 20px;">
+            <input style="border-style:solid; border-width:0px; border-radius: 10px; width: 300px; height: 50px; background-color: #2e3e4e;" type="text" id="상세주소" name="상세주소" placeholder="  상세주소">
+        </div>
+
+        <div style="margin: 20px;">
+            <input  style="border-style:solid; border-width:0px; border-radius: 10px; width: 300px; height: 50px; background-color: #2e3e4e;"type="text" id="무게" name="무게" placeholder="  무게">
+        </div>
+
+        <button type="submit" style="border-style:solid; border-width:0px; box-shadow: none; font-family:fantasy; width: 150px; height: 50px; color: #fff; background:rgb(75, 43, 161); border-radius:10px; padding:5px 20px;">N e x t</button>
     </div>
+
+
 </form>
 
 {% endblock %}
