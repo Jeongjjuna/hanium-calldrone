@@ -2,48 +2,43 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'app1/css/jquery.mobile-1.4.5.min.css' %}" />
-    <script src="{% static 'app1/js/jquery-1.11.1.min.js' %}"></script>
-    <script src="{% static 'app1/js/jquery.mobile-1.4.5.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'app1/css/style.css' %}">
-    <title>calldrone</title>
-</head>
-<body style="background-color: rgb(124, 141, 141);">
-    <div>
-        <header>
-            {% block header %}
-            {% endblock %}
-        </header>
-    </div>
-    
-    <div style="height: 600px;">
-        <main>
-            {% block content %}
-            {% endblock %}
-        </main>
-    </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'app1/css/jquery.mobile-1.4.5.min.css' %}" />
+        <!-- <script src="{% static 'app1/js/jquery-1.11.1.min.js' %}"></script> -->
+        <!-- <script src="{% static 'app1/js/jquery.mobile-1.4.5.min.js' %}"></script> -->
+        <link rel="stylesheet" href="{% static 'app1/css/style.css' %}">
+        <title>calldrone</title>
+    </head>
+    <body style="background-color: #28333F;">
 
-    
+    <header>
+        {% block header %}
+        {% endblock %}
+    </header>
+
+
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+
+
     <footer>
-        <div data-role="footer" style="overflow:hidden;
-        border-top-right-radius:10px; border-top-left-radius:10px;" data-position="fixed">
-            <div data-role="navbar">
-                <ul>
-                    <!-- class="ui-btn-active" -->
-                    <li><a style="padding: 20px" href="/app1/page1" >홈</a></li>
-                    <li><a style="padding: 20px" href="/app1/page2" >호출</a></li>
-                    <li><a style="padding: 20px" href="/app1/page3" >알림</a></li>
-                    <li><a style="padding: 20px" href="/app1/page4" >마이페이지</a></li>
-                </ul>
-            </div><!-- /navbar -->
-        </div><!-- /footer -->
+        <img src="/static/app1/css/images/Home/Home_Bottom Navigation.png" style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 560px;">
+        <div style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; text-align: center; top: 585px;">
+            <a href="/app1/page1"><img src="/static/app1/css/images/Home/Home_Home.png"></a>
+            <a href="/app1/page2"><img src="/static/app1/css/images/Home/Home_Routing.png"></a>
+            <a href="/app1/page3"><img src="/static/app1/css/images/Home/Home_Sms Notification.png"></a>
+            <a href="/app1/page4"><img src="/static/app1/css/images/Home/Home_User.png"></a>
+        </div>
     </footer>
 
-</body>
+    </body>
 </html>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fddbb98b1c8bf19ba082003e2b48346e"></script>
