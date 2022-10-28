@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from collections import deque
+from haversine import haversine, Unit
 
 from app1.consumers import WSConsumer
 #--------------주소 -> 위경도바꾸는 함수--------
@@ -30,19 +31,6 @@ def page1(request):
 def page2(request):
     global send_data_to_drone
     WSConsumer.data_from_drone.append('stop')
-    '''
-    만약 post정보가 들어온다면
-        1. 목적지정보(위치, 구, 상세주소)
-        2. 원하는 배송품 무게
-
-        ->
-        1. 목적지 정보 데이터로 거리를 계산한다
-        2. 드론속도정보[1,2,3,
-                    4,5,6,
-                    7,8,9]
-
-        >>>>>> 사용자에게 최적 정보를 렌더링 해줘야함
-    '''
     
     if request.method == 'POST':
         address = request.POST['도로명주소']
@@ -52,17 +40,19 @@ def page2(request):
         high = request.POST['높이']
         crd = get_location(address)
 
-        # 광주광역시 도산로 9번길 35
-        #{'lat': '35.1276555542395', 'lng': '126.790916656135'}
-        print(f'\n\n입력받은 주소 : {address}')
-        print(f'변환된 위,경도{crd}\n\n')
+        print(f'\n\n입력받은 주소 : {address}') # "광주광역시 도산로 9번길 35"
+        print(f'목적지 위경도 : {crd}') # {'lat': '35.1276555542395', 'lng': '126.790916656135'}
         
         # 드론으로 전송할 데이터를 넣어주기!!
-        # '35.1276555542395 126.790916656135'
         # send_data_to_drone.append(crd['lat']+' '+crd['lng'])
-        # 도착 좌표 임의로 지정
-        send_data_to_drone.append('35.180304'+' '+'126.908297')
-        return redirect('page5')
+        send_data_to_drone.append('35.180304'+' '+'126.908297') # 도착 좌표 임의로 지정
+
+        pre_grid = (35.180001, 126.908111) # 시작좌표
+        target_grid = (35.180304, 126.908297) # 도착좌표
+        dist_target = haversine(pre_grid, target_grid)
+        print(f'목적지 까지 거리 : {dist_target}\n\n') # km
+
+        return render(request, 'app1/page5.html')
 
     return render(request, 'app1/page2.html')
 
