@@ -61,10 +61,9 @@ def listen_data_from_jetson(client_socket, addr):
 if __name__ == '__main__':
     # socket통신 세팅
     
-    HOST = '127.0.0.1'
+    #HOST = '127.0.0.1'
     # HOST = socket.gethostbyname(socket.gethostname())
-    print(HOST)
-    # HOST = '168.131.153.213' 
+    HOST = '168.131.153.213' 
     PORT = 9999
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)

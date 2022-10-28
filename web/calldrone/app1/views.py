@@ -58,7 +58,9 @@ def page2(request):
         
         # 드론으로 전송할 데이터를 넣어주기!!
         # '35.1276555542395 126.790916656135'
-        send_data_to_drone.append(crd['lat']+' '+crd['lng'])
+        # send_data_to_drone.append(crd['lat']+' '+crd['lng'])
+        # 도착 좌표 임의로 지정
+        send_data_to_drone.append('35.180304'+' '+'126.908297')
         return redirect('page5')
 
     return render(request, 'app1/page2.html')
