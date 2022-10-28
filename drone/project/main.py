@@ -100,15 +100,17 @@ def moving(client_socket, lat, lon, alt):
 
     print("\nGoing towards point1")
     print(f'moving : {lat}, {lon}')
-
+    print('start video')
+    #start_new_thread(udp_client, (0, ))
     # Move vehicle
     #point1 = LocationGlobalRelative(lat, lon, alt)
     #vehicle.simple_goto(point1)
 
 
-    d = str(lat) + ' ' + str(lon)
-    client_socket.send(d.encode())
-    time.sleep(2)
+    d = str(36.565614) + ' ' + str(lon)
+    while True:
+        client_socket.send(d.encode())
+        time.sleep(2)
     # Wait until complete
     while True:
         # ------------------------------실시간 좌표 전송--------------
@@ -189,15 +191,43 @@ def listen_data_from_django(client_socket):
 
             data = data.decode()
             target_q.append(data)
+            print('receive data : ', data)
         except ConnectionResetError as e:
             break
 
     print('django와 연결 종료')
     client_socket.close()
 
+# -------test
+import socket
+import cv2
+import time
+def udp_client(a):
+    UDP_IP = '168.131.153.213'
+    UDP_PORT = 9505
 
-HOST = '127.0.0.1'
-#HOST = '168.131.153.213'  
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+    cap = cv2.VideoCapture(0)
+
+    while True:
+        ret, frame = cap.read()
+        d = frame.flatten()
+        s = d.tobytes()
+
+        for i in range(20):
+            sock.sendto(bytes([i]) + s[i*46080:(i+1)*46080], (UDP_IP, UDP_PORT))
+
+    
+
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
+# ----------
+
+
+#HOST = '127.0.0.1'
+HOST = '168.131.153.213'  
 PORT = 9999
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect((HOST, PORT))
@@ -206,6 +236,8 @@ client_socket.connect((HOST, PORT))
 #start_new_thread(camera, (0, 0))
 start_new_thread(lidar, (0, 0))
 start_new_thread(listen_data_from_django, (client_socket, ))
+start_new_thread(udp_client, (0, ))
+
 
 # -----------------------
 '''
