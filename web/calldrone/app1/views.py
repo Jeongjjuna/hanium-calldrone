@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from collections import deque
@@ -58,8 +58,10 @@ def page2(request):
         
         # 드론으로 전송할 데이터를 넣어주기!!
         # '35.1276555542395 126.790916656135'
-        send_data_to_drone.append(crd['lat']+' '+crd['lng'])
-        return render(request, 'app1/page2.html')
+        # send_data_to_drone.append(crd['lat']+' '+crd['lng'])
+        # 도착 좌표 임의로 지정
+        send_data_to_drone.append('35.180304'+' '+'126.908297')
+        return redirect('page5')
 
     return render(request, 'app1/page2.html')
 
@@ -69,3 +71,11 @@ def page3(request):
 def page4(request):
     WSConsumer.data_from_drone.append('stop')
     return render(request, 'app1/page4.html')
+
+def page5(request):
+    if request.method == 'POST':
+        # manage.py에서 start가 들어가면 드론에 출발하라고 전송해준다.
+        send_data_to_drone.append('start')
+        return redirect('page1')
+
+    return render(request, 'app1/page5.html')

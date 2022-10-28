@@ -3,6 +3,50 @@ import time
 from _thread import *
 from collections import deque
 
+#import PyLidar2
+#import cv2
+import time
+
+lidar_q = deque()
+
+# lidar
+def lidar(a, b):
+    global lidar_q
+
+    # port = "/dev/ttyUSB0" #linux
+    # Obj = PyLidar2.YdLidarX4(port)
+    # try:
+    #     if(Obj.Connect()):
+    #         print(Obj.GetDeviceInfo())
+    #         gen = Obj.StartScanning()
+    #         t = 0
+    #         while t < 500: #scan for 30 seconds
+    #             print(gen)
+    #             data = next(gen)
+                
+    #             lidar_q.append(data[0])
+    #             print(data[0])
+
+    #             #time.sleep(2)
+    #             t += 1
+    #         Obj.StopScanning()
+    #         Obj.Disconnect()
+    #         print('ended1')
+    #     else:
+    #         print('ended2')
+    #         print("Error connecting to device")
+    #         Obj.StopScanning()
+    #         Obj.Disconnect()
+    # except:
+    #     print('ended3')
+    #     Obj.StopScanning()
+    #     Obj.Disconnect()
+    while True:
+        lidar_q.append(2000)
+        time.sleep(2)
+
+
+
 target_q = deque()
 #from thread_func import *
 
@@ -52,33 +96,50 @@ target_q = deque()
 
 
 def moving(client_socket, lat, lon, alt):
+    global lidar_q
+
     print("\nGoing towards point1")
     print(f'moving : {lat}, {lon}')
+    print('start video')
+    #start_new_thread(udp_client, (0, ))
+    # Move vehicle
+    #point1 = LocationGlobalRelative(lat, lon, alt)
+    #vehicle.simple_goto(point1)
+
+
+    d = str(36.565614) + ' ' + str(lon)
     while True:
-        d = str(lat) + ' ' + str(lon)
         client_socket.send(d.encode())
         time.sleep(2)
-        pass
-
-    # Move vehicle
-    point1 = LocationGlobalRelative(lat, lon, alt)
-    vehicle.simple_goto(point1)
-
     # Wait until complete
     while True:
-        print("Altitude:", vehicle.location.global_relative_frame.lat)
-        print("Longitude:", vehicle.location.global_relative_frame.lon)
-        x = str(vehicle.location.global_relative_frame.lat)
-        y = str(vehicle.location.global_relative_frame.lon)
-        data = x + ' ' + y
-        client_socket.send(data.encode())
+        # ------------------------------실시간 좌표 전송--------------
+        #print("Altitude:", vehicle.location.global_relative_frame.lat)
+        #print("Longitude:", vehicle.location.global_relative_frame.lon)
+        #x = str(vehicle.location.global_relative_frame.lat)
+        #y = str(vehicle.location.global_relative_frame.lon)
+        #data = x + ' ' + y
+        #client_socket.send(data.encode())
         
-        if ((vehicle.location.global_relative_frame.lat >= point1.lat*0.9999995) and (vehicle.location.global_relative_frame.lat <= point1.lat*1.0000005)) and ((vehicle.location.global_relative_frame.lon >= point1.lon*0.999999995) and (vehicle.location.global_relative_frame.lon <= point1.lon*1.0000005)):
-            print("Reached target place!")
-            break
-        if ((vehicle.location.global_relative_frame.lat >= point1.lat*0.9999995) and (vehicle.location.global_relative_frame.lat <= point1.lat*1.0000005)) and ((vehicle.location.global_relative_frame.lon >= point1.lon*0.999999995) and (vehicle.location.global_relative_frame.lon <= point1.lon*1.0000005)):
-            print("Reached target place!")
-            break
+        # ------------------------------도착 종료 조건 확인---------------
+        #if ((vehicle.location.global_relative_frame.lat >= point1.lat*0.9999995) and (vehicle.location.global_relative_frame.lat <= point1.lat*1.0000005)) and ((vehicle.location.global_relative_frame.lon >= point1.lon*0.999999995) and (vehicle.location.global_relative_frame.lon <= point1.lon*1.0000005)):
+        #    print("Reached target place!")
+        #    break
+        
+        #-----------------------ladar_q 값확인------------------------------------------
+        if len(lidar_q)>0:
+            dist = lidar_q.popleft()
+            if dist < 3000:
+                # Auto모드로 변경
+
+                while (dist > 3000):
+                    # 좌 혹은 우로 이동하기 명령(한 2미터정도는 이동하도록해야될듯)
+                    pass
+                # 다시 목표지점으로 이동설정
+                #point1 = LocationGlobalRelative(lat, lon, alt)
+                #vehicle.simple_goto(point1)
+
+        print(dist)
         time.sleep(1)
 
 
@@ -130,76 +191,106 @@ def listen_data_from_django(client_socket):
 
             data = data.decode()
             target_q.append(data)
+            print('receive data : ', data)
         except ConnectionResetError as e:
             break
 
     print('django와 연결 종료')
     client_socket.close()
 
+# -------test
+import socket
+import cv2
+import time
+def udp_client(a):
+    UDP_IP = '168.131.153.213'
+    UDP_PORT = 9505
 
-HOST = '127.0.0.1'
-#HOST = '168.131.153.213'  
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+    cap = cv2.VideoCapture(0)
+
+    while True:
+        ret, frame = cap.read()
+        d = frame.flatten()
+        s = d.tobytes()
+
+        for i in range(20):
+            sock.sendto(bytes([i]) + s[i*46080:(i+1)*46080], (UDP_IP, UDP_PORT))
+
+    
+
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
+# ----------
+
+
+#HOST = '127.0.0.1'
+HOST = '168.131.153.213'  
 PORT = 9999
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect((HOST, PORT))
 
 
 #start_new_thread(camera, (0, 0))
-#start_new_thread(lidar, (0, 0))
+start_new_thread(lidar, (0, 0))
 start_new_thread(listen_data_from_django, (client_socket, ))
+start_new_thread(udp_client, (0, ))
 
-try:
-    '''
-    # Connect to the vehicle
-    vehicle = connect('tcp:127.0.0.1:5762',
-                    wait_ready=True, heartbeat_timeout=15)
 
-    # Arm vehicle
-    arm()
+# -----------------------
+'''
+# Connect to the vehicle
+vehicle = connect('tcp:127.0.0.1:5762',
+                wait_ready=True, heartbeat_timeout=15)
 
-    '''
+# Arm vehicle
+arm()
 
-    # 목적지 좌표를 전송 받으면 이륙
-    message = '0 0'
-    while True:
-        client_socket.send(message.encode())
-        time.sleep(2)
-        print(target_q)
+'''
 
-        if len(target_q) == 1:
-            data = target_q[0]
-            target_x, target_y = data.split()
-            break
+# 목적지 좌표를 전송 받으면 이륙
+message = '0 0'
+while True:
+    client_socket.send(message.encode())
+    time.sleep(2)
+    print(target_q)
 
-        # if len(target_q) != 0:
-        #     data = target_q.pop()
-        #     target_x, target_y = map(float, data.split())
-        #     print(target_x, target_y)
-        #     break
-    
-    '''
-    # Takeoff vehicle
-    takeoffing(10)
+    if len(target_q) == 1:
+        data = target_q[0]
+        target_x, target_y = data.split()
+        break
 
-    # Set airspeed
-    print("Set airspeed to 10")
-    vehicle.airspeed = 10
-    '''
+    # if len(target_q) != 0:
+    #     data = target_q.pop()
+    #     target_x, target_y = map(float, data.split())
+    #     print(target_x, target_y)
+    #     break
 
-    # Move vehicle
-    moving(client_socket, target_x, target_y, 10)
+'''
+# Takeoff vehicle
+takeoffing(10)
 
-    # Return vehicle
-    returning()
+# Set airspeed
+print("Set airspeed to 10")
+vehicle.airspeed = 10
+'''
 
-    # Close vehicle
-    print("\nClose vehicle")
-    vehicle.close()
+# Move vehicle
+moving(client_socket, target_x, target_y, 10)
 
-except:
-    print('\nSome other error!')
+# Return vehicle
+returning()
 
-    #returning()
+# Close vehicle
+print("\nClose vehicle")
+vehicle.close()
 
-    print("\nClose vehicle")
-    #vehicle.close()
+#---except
+print('\nSome other error!')
+
+#returning()
+
+print("\nClose vehicle")
+#vehicle.close()

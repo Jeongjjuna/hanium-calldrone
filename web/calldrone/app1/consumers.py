@@ -33,7 +33,8 @@ class WSConsumer(AsyncWebsocketConsumer):
             
             # 들어온은 좌표값이 있의면 브라우저로 보내주기
             if self.data_from_drone:
-                await self.send(json.dumps({'message' : self.data_from_drone.popleft()}))
+                x, y = self.data_from_drone.popleft()
+                await self.send(json.dumps({'message1' : x, 'message2' : y }))
                 await sleep(2)
 
             # 들어오는 좌표값이 없을 때 == 즉 아직 배송중 상태일 때
