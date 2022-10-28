@@ -57,12 +57,8 @@ def listen_data_from_jetson(client_socket, addr):
     print('드론 연결 종료' + addr[0],':',addr[1]) # 예외발생시 젯슨과의 tcp연결 종료를 알리는 디벙깅용함수
     client_socket.close() #젯슨 과의 클라이언트 연결 종료     
 
-
-if __name__ == '__main__':
-    # socket통신 세팅
-    
-    #HOST = '127.0.0.1'
-    # HOST = socket.gethostbyname(socket.gethostname())
+#socket통신 세팅
+def listen_socket():
     HOST = '168.131.153.213' 
     PORT = 9999
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -71,10 +67,15 @@ if __name__ == '__main__':
     server_socket.listen()  # 프로젝트용 드론1개기준 socket접속대기
     print('프로젝트용 드론 1대를 접속 대기중입니다...')
     client_socket, addr = server_socket.accept()
+    return client_socket, addr
+
+if __name__ == '__main__':
+    
+    client_socket, addr = listen_socket()
 
     # 프로젝트용 드론이 연결 되었다면..
     # jetson으로부터 실시간 수신대기하는 쓰레드생성
-    start_new_thread(listen_data_from_jetson, (client_socket, addr))
+    #start_new_thread(listen_data_from_jetson, (client_socket, addr))
     #start_new_thread(send_data_to_jetson, (client_socket, addr))
     
     # django 서버 시작
