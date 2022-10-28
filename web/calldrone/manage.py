@@ -77,6 +77,6 @@ if __name__ == '__main__':
     # jetson으로부터 실시간 수신대기하는 쓰레드생성
     start_new_thread(listen_data_from_jetson, (client_socket, addr))
     #start_new_thread(send_data_to_jetson, (client_socket, addr))
-
+    
     # django 서버 시작
     main()
