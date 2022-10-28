@@ -45,15 +45,16 @@ def page2(request):
     '''
     
     if request.method == 'POST':
-        city = request.POST['시']
         address = request.POST['도로명주소']
-        detail_adress = request.POST['상세주소']
         weight = request.POST['무게']
-        crd = get_location(city + address)
+        width = request.POST['가로']
+        height = request.POST['세로']
+        high = request.POST['높이']
+        crd = get_location(address)
 
         # 광주광역시 도산로 9번길 35
         #{'lat': '35.1276555542395', 'lng': '126.790916656135'}
-        print(f'\n\n입력받은 주소 : {city + address}')
+        print(f'\n\n입력받은 주소 : {address}')
         print(f'변환된 위,경도{crd}\n\n')
         
         # 드론으로 전송할 데이터를 넣어주기!!

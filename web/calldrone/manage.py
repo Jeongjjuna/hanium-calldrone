@@ -71,7 +71,7 @@ def listen_socket():
 
 if __name__ == '__main__':
     
-    client_socket, addr = listen_socket()
+    #client_socket, addr = listen_socket()
 
     # 프로젝트용 드론이 연결 되었다면..
     # jetson으로부터 실시간 수신대기하는 쓰레드생성

@@ -15,21 +15,25 @@
 
 <form action="/app1/page2" method="post">
     {% csrf_token %}
-    <div style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 200px; text-align: center;">
-        <div style="margin: 20px;">
-            <input style="border-style:solid; border-width:0px; border-radius: 10px; width: 300px; height: 50px; background-color: #2e3e4e;" type="text" id="시" name="시" placeholder="  시/광역시">
-        </div>
-
-        <div style="margin: 20px;">
+    <div style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 170px; text-align: center;">
+        <div style="margin: 15px;">
             <input style="border-style:solid; border-width:0px; border-radius: 10px; width: 300px; height: 50px; background-color: #2e3e4e;" type="text" id="도로명주소" name="도로명주소" placeholder="  도로명주소">
         </div>
+
+        <div style="margin: 15px;">
+            <input style="border-style:solid; border-width:0px; border-radius: 10px; width: 300px; height: 50px; background-color: #2e3e4e;" type="text" id="무게" name="무게" placeholder="  무게">
+        </div>
         
-        <div style="margin: 20px;">
-            <input style="border-style:solid; border-width:0px; border-radius: 10px; width: 300px; height: 50px; background-color: #2e3e4e;" type="text" id="상세주소" name="상세주소" placeholder="  상세주소">
+        <div style="margin: 15px;">
+            <input style="border-style:solid; border-width:0px; border-radius: 10px; width: 300px; height: 50px; background-color: #2e3e4e;" type="text" id="가로" name="가로" placeholder="  가로">
         </div>
 
-        <div style="margin: 20px;">
-            <input  style="border-style:solid; border-width:0px; border-radius: 10px; width: 300px; height: 50px; background-color: #2e3e4e;"type="text" id="무게" name="무게" placeholder="  무게">
+        <div style="margin: 15px;">
+            <input  style="border-style:solid; border-width:0px; border-radius: 10px; width: 300px; height: 50px; background-color: #2e3e4e;"type="text" id="세로" name="세로" placeholder="  세로">
+        </div>
+
+        <div style="margin: 15px;">
+            <input  style="border-style:solid; border-width:0px; border-radius: 10px; width: 300px; height: 50px; background-color: #2e3e4e;"type="text" id="높이" name="높이" placeholder="  높이">
         </div>
 
         <button type="submit" style="border-style:solid; border-width:0px; box-shadow: none; width: 150px; height: 50px; color: #fff; background:rgb(75, 43, 161); border-radius:10px; padding:5px 20px;"><h4>Next</h4></button>
