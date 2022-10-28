@@ -2,15 +2,26 @@
 1. 코드 공유 약속
 2. 프로젝트 코드공유
 
-django : 4.06 version
+<설치한 파일들>
 python : 3.9.12 version
+django : 4.06 version
+channels : 3.0.5
+requests : 2.24.0
+haversine : 2.7.0
 
+<설치 하는법>
+pip install python==3.9.12
+pip install django==4.06
+pip install channels==3.0.5
+pip install requests==2.24.0
+pip install haversine==2.7.0
 
 
 ### 🍀 커밋 컨벤션
 ```
 # Feat : 새로운 기능을 추가할 경우
 # Fix : 버그를 고친 경우
+# Update : 기능을 수정한 경우
 # Design: css등 사용자 UI디자인 변경
 # Style : 코드 포맷변경, 세미 콜론 누락, 코드 수정이 없는 경우
 # Refactor : 리팩토링
