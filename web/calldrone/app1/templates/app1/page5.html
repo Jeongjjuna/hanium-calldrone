@@ -7,6 +7,16 @@
 <!-- main -->
 {% block content %}
 
+<a href="/app1/page1"><img src="/static/app1/css/images/Map/Map_Small.png" style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 15px;"></a>
+
+<div style="text-align : center; color: aliceblue; height: 50px;">
+</div>
+
+<img src="/static/app1/css/images/Tag.png" style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; width: 100px; height: 100px; position: absolute; top: 40px;">
+<img src="/static/app1/css/images/Group 237723.png" style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; width: 243px; height: 21.36px; position: absolute; top: 140px;">
+
+
+<!-- 
 {% for d in data %}
     <p>드론이름 : {{d.name}}</p>
     <p>드론이미지주소 : {{d.address}}</p>
@@ -15,20 +25,45 @@
 {% endfor %}
 
 <p>{{dist}}</p>
-
-
-<a href="/app1/page1"><img src="/static/app1/css/images/Map/Map_Small.png" style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 15px;"></a>
-
-<div style="text-align : center; color: aliceblue; height: 50px;">
-</div>
+-->
 
 <form action="/app1/page5" method="post">
     {% csrf_token %}
-    <div style="box-shadow: 1px 1px 1px 1px rgba(57, 53, 112, 0.2); margin-left: 50px; border-radius: 30px;
-    margin-top:10px; margin-right: 50px; text-align : center; background: linear-gradient(#2e3e4e, rgb(28, 10, 39)); padding: 10px;">
 
-        <div style="color:rgb(255, 255, 255);margin: 10px;">
+    <div style=" position: relative; box-shadow: 1px 1px 1px 1px rgba(0.1, 0.1, 0.1, 0.2); margin-left: 50px; margin-right: 50px; border-radius: 30px;
+    margin-top:10px; text-align : center; background: #3D4752 ;position: absolute; top: 340px;
+    left: 30Px; right: 30px; margin-left: auto; margin-right: auto; height: 200px;">
+        <div style="color:rgb(107, 9, 236); margin: 20px; padding: 20px; margin-top: 70px;">
+            <p>
+                <label for="name"><h2></h2></label>
+                <h4 id="name" style="color:rgb(156, 129, 190)"> 드론을 선택해 주세요 </h4>
+                <h4 id="pretime" style="color:rgb(156, 129, 190)"> </h4>
+                <h4 id="time" style="color:rgb(156, 129, 190)"> </h4>
+                <h4 id="pay" style="color:rgb(156, 129, 190)"></h4>
+            </p>
+            <br>
+        </div>
+    </div>
+
+
+    <div style="display: flex; flex-wrap: wrap; justify-content:space-around; box-shadow: 1px 1px 1px 1px rgba(57, 53, 112, 0.2); margin-left: 50px; border-radius: 30px;
+    margin-top:10px; margin-right: 50px; text-align : center; background:#505963; padding: 10px; position: absolute; top: 170px; position: absolute; left: 30Px; right: 30px;
+    margin-left: auto; margin-right: auto;">
+        {% for d in data %}
+        <div style="color:rgb(255, 255, 255); margin: 10px;">
             <!-- value="on" checked="checked" -->
+            <input onclick="document.querySelector('#name').innerText = '모델명 : {{d.name}}';
+            document.querySelector('#pretime').innerText = '호출 시간: 0시간 0분 소요';
+            document.querySelector('#time').innerText = '배송 시간 : {{d.time}}';
+            document.querySelector('#pay').innerText = '배송 가격 : 5,000원';"
+            type="radio" name="radio-choice-v-2" id="radio-choice-v-2a" value="off">
+            <label for="name">{{d.name}}<br></label>
+            <img src="{{d.address}}" width="60" height="60" style="border-radius: 25px;">
+        </div>
+        {% endfor %}
+        
+        <!--
+        <div style="color:rgb(255, 255, 255);margin: 10px;">
             <input onclick="document.querySelector('#payload').innerText = '3시간 걸려!';" type="radio" name="radio-choice-v-2" id="radio-choice-v-2a" value="off">
             <label for="name">F450<br></label>
             <img src="/static/app1/css/images/drone1.png" width="60" height="60" style="border-radius: 10px;">
@@ -45,20 +80,13 @@
             <label for="email">IRON-MAN<br></label>
             <img src="/static/app1/css/images/drone3.png" width="60" height="60" style="border-radius: 10px;">
         </div>
+        -->
     </div>
     
     <!-- <img style="position:absolute; left:277px; top: 400px;" src="/static/app1/css/images/load-34.gif" width="70" height="70"> -->
-    <div style=" position: relative; box-shadow: 1px 1px 1px 1px rgba(0.1, 0.1, 0.1, 0.2); margin-left: 50px; margin-right: 50px; border-radius: 30px;
-    margin-top:10px; text-align : center; background: linear-gradient(#2e3e4e, rgb(28, 10, 39));">
-        <div style="color:rgb(107, 9, 236); margin: 20px; padding: 20px;">
-            <p>
-                <label for="name"><h2>도착 예정 시간</h2></label>
-                <h4 id="payload" style="color:rgb(156, 129, 190)"> 드론을 선택해 주세요 </h4>
-            </p>
-            <br>
-            <button onclick = "alert('배송을 시작합니다');" type="submit" style="border-style:solid; border-width:0px; box-shadow: none; font-family:fantasy; width: 150px; height: 50px; color: #fff; background:rgb(75, 43, 161); border-radius:10px; padding:5px 20px;"><h4>선택하기</h4></button>
-        </div>
-    </div>
+
+    <button onclick = "alert('배송을 시작합니다');" type="submit" style="border-style:solid; border-width:0px; box-shadow: none; width: 175px; height: 39px;
+    color: #fff; background: #7B61FF; border-radius:10px; padding:5px 20px; position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 560px;"><h4>드론 호출</h4></button>
 </form>
 {% endblock %}
 

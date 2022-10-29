@@ -60,9 +60,9 @@ def page2(request):
 
         drone_max_dist = [0.33, 0.34, 0.35, 0.36, 0.37, 0.38]
 
-        drone = [['이름1', '어드레스1', dist_target/60], ['이름2', '어드레스2', dist_target/50],
-        ['이름3', '어드레스3', dist_target/40], ['이름4', '어드레스4', dist_target/30],
-        ['이름5', '어드레스5', dist_target/20], ['이름6', '어드레스6', dist_target/10]]
+        drone = [['F450', '/static/app1/css/images/drone1.png', round(dist_target/60, 5)], ['S500', '/static/app1/css/images/drone2.png', round(dist_target/50, 5)],
+        ['IM-680', '어드레스3', round(dist_target/40, 5)], ['X6', '어드레스4', round(dist_target/30, 5)],
+        ['EV410', '어드레스5', round(dist_target/20, 5)], ['EV610', '어드레스6', round(dist_target/10, 5)]]
 
         context={'data' : [], 'dist': dist_target}
         for i, dist in enumerate(drone_max_dist):
