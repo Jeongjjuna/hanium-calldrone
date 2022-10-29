@@ -1,3 +1,4 @@
+from re import T
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
@@ -52,7 +53,32 @@ def page2(request):
         dist_target = haversine(pre_grid, target_grid)
         print(f'목적지 까지 거리 : {dist_target}\n\n') # km
 
-        return render(request, 'app1/page5.html')
+        # (평균속도, 최대시간)
+        drone_payload = [(60, '최대시간1'), (50, '최대시간2'),
+                        (40, '최대시간3'), (30, '최대시간4'),
+                        (20, '최대시간5'), (10, '최대시간6')]
+
+        drone_max_dist = [0.33, 0.34, 0.35, 0.36, 0.37, 0.38]
+
+        drone = [['이름1', '어드레스1', dist_target/60], ['이름2', '어드레스2', dist_target/50],
+        ['이름3', '어드레스3', dist_target/40], ['이름4', '어드레스4', dist_target/30],
+        ['이름5', '어드레스5', dist_target/20], ['이름6', '어드레스6', dist_target/10]]
+
+        context={'data' : [], 'dist': dist_target}
+        for i, dist in enumerate(drone_max_dist):
+            if dist_target < dist:
+                d = dict()
+                d['name'] =  drone[i][0]
+                d['address'] = drone[i][1]
+                d['time'] = drone[i][2]
+                context['data'].append(d)
+        
+        '''
+        이름, 이미지주소, 도착예정시간
+        contex = {'data' : [{'name' : 이름1', 'address' : '어드레스1,
+                'time' : dist_target/60}, ], 'dist': dist_target}
+        '''
+        return render(request, 'app1/page5.html', context=context)
 
     return render(request, 'app1/page2.html')
 
