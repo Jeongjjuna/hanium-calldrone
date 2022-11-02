@@ -13,6 +13,22 @@
         <title>calldrone</title>
     </head>
     <body style="background-color: #28333F;">
+    
+        {% if check %}
+        <div>
+            <h1>카카오 로그아웃</h1>
+            <form action="/app1/kakaoLogout" method="GET">
+                <input type="submit" value="카카오로그아웃" />
+            </form>
+        </div>
+        {% else %}
+            <div>
+                <h1>카카오 로그인</h1>
+                <form action="/app1/kakaoLoginLogic" method="GET">
+                <input type="submit" value="카카오로그인" />
+                </form>
+            </div>
+        {% endif %}
 
     <header>
         {% block header %}

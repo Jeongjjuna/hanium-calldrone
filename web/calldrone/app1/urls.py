@@ -3,6 +3,14 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('login', views.login, name='login'),
+
+    path('kakaoLoginLogic', views.kakaoLoginLogic, name='kakaoLoginLogic'),
+
+    path('kakaoLoginLogicRedirect', views.kakaoLoginLogicRedirect, name='kakaoLoginLogicRedirect'),
+
+    path('kakaoLogout', views.kakaoLogout, name='kakaoLogout'),
+
     path('page1', views.page1, name='page1'),
 
     path('page2', views.page2, name='page2'),

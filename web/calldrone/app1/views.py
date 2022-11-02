@@ -1,4 +1,3 @@
-from re import T
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
@@ -6,8 +5,56 @@ from collections import deque
 from haversine import haversine, Unit
 
 from app1.consumers import WSConsumer
-#--------------주소 -> 위경도바꾸는 함수--------
 import requests, json
+
+#-----------------카카오 소셜 로그인/로그아웃----------------
+def login(request):
+    _context = {'check':False}
+    if request.session.get('access_token'):
+        _context['check'] = True
+    return render(request, 'app1/login.html', _context)
+
+def kakaoLoginLogic(request):
+    _restApiKey = '9f978728a234188af99c073236af7def' # 입력필요
+    _redirectUrl = 'http://127.0.0.1:8000/app1/kakaoLoginLogicRedirect'
+    _url = f'https://kauth.kakao.com/oauth/authorize?client_id={_restApiKey}&redirect_uri={_redirectUrl}&response_type=code'
+    return redirect(_url)
+
+def kakaoLoginLogicRedirect(request):
+    _qs = request.GET['code']
+    _restApiKey = '9f978728a234188af99c073236af7def' # 입력필요
+    _redirect_uri = 'http://127.0.0.1:8000/app1/kakaoLoginLogicRedirect'
+    _url = f'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={_restApiKey}&redirect_uri={_redirect_uri}&code={_qs}'
+    _res = requests.post(_url)
+    _result = _res.json()
+    request.session['access_token'] = _result['access_token']
+    request.session.modified = True
+
+    _context = {'check':False}
+    if request.session.get('access_token'):
+        _context['check'] = True
+    return render(request, 'app1/page1.html', _context)
+
+def kakaoLogout(request):
+    _token = request.session['access_token']
+    # _url = 'https://kapi.kakao.com/v1/user/logout'
+    # _header = {
+    #     'Authorization': f'bearer {_token}'
+    # }
+    _url = 'https://kapi.kakao.com/v1/user/unlink'
+    _header = {
+        'Authorization': f'bearer {_token}',
+    }
+    _res = requests.post(_url, headers=_header)
+    _result = _res.json()
+    if _result.get('id'):
+        del request.session['access_token']
+        _context = {'check':False}
+        return render(request, 'app1/login.html', _context)
+    else:
+        return render(request, 'logoutError.html')
+
+#--------------주소 -> 위경도바꾸는 함수--------
 
 def get_location(address):
     url = 'https://dapi.kakao.com/v2/local/search/address.json?query=' + address
@@ -27,7 +74,10 @@ send_data_to_drone = deque() #manage.py에서 함께 공유하는 변수
 # Create your views here.
 def page1(request):
     WSConsumer.data_from_drone.append('stop')
-    return render(request, 'app1/page1.html')
+    _context = {'check':False}
+    if request.session.get('access_token'):
+        _context['check'] = True
+    return render(request, 'app1/page1.html', _context)
 
 def page2(request):
     global send_data_to_drone
@@ -80,14 +130,24 @@ def page2(request):
         '''
         return render(request, 'app1/page5.html', context=context)
 
-    return render(request, 'app1/page2.html')
+
+    _context = {'check':False}
+    if request.session.get('access_token'):
+        _context['check'] = True
+    return render(request, 'app1/page2.html', _context)
 
 def page3(request):
-    return render(request, 'app1/page3.html', context={'text' : 'Hello World'})
+    _context = {'check':False}
+    if request.session.get('access_token'):
+        _context['check'] = True
+    return render(request, 'app1/page3.html', _context)
 
 def page4(request):
     WSConsumer.data_from_drone.append('stop')
-    return render(request, 'app1/page4.html')
+    _context = {'check':False}
+    if request.session.get('access_token'):
+        _context['check'] = True
+    return render(request, 'app1/page4.html', _context)
 
 def page5(request):
     if request.method == 'POST':
@@ -95,4 +155,7 @@ def page5(request):
         send_data_to_drone.append('start')
         return redirect('page1')
 
-    return render(request, 'app1/page5.html')
+    _context = {'check':False}
+    if request.session.get('access_token'):
+        _context['check'] = True
+    return render(request, 'app1/page5.html', _context)
