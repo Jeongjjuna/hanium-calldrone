@@ -21,19 +21,25 @@ def kakaoLoginLogic(request):
     return redirect(_url)
 
 def kakaoLoginLogicRedirect(request):
-    _qs = request.GET['code']
-    _restApiKey = '9f978728a234188af99c073236af7def' # 입력필요
-    _redirect_uri = 'http://127.0.0.1:8000/app1/kakaoLoginLogicRedirect'
-    _url = f'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={_restApiKey}&redirect_uri={_redirect_uri}&code={_qs}'
-    _res = requests.post(_url)
-    _result = _res.json()
-    request.session['access_token'] = _result['access_token']
-    request.session.modified = True
+    try:
+        _qs = request.GET['code']
+        _restApiKey = '9f978728a234188af99c073236af7def' # 입력필요
+        _redirect_uri = 'http://127.0.0.1:8000/app1/kakaoLoginLogicRedirect'
+        _url = f'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={_restApiKey}&redirect_uri={_redirect_uri}&code={_qs}'
+        _res = requests.post(_url)
+        _result = _res.json()
+        request.session['access_token'] = _result['access_token']
+        request.session.modified = True
 
-    _context = {'check':False}
-    if request.session.get('access_token'):
-        _context['check'] = True
-    return render(request, 'app1/page1.html', _context)
+        _context = {'check':False}
+        if request.session.get('access_token'):
+            _context['check'] = True
+        return render(request, 'app1/page1.html', _context)
+    except:
+        _context = {'check':False}
+        return render(request, 'app1/login.html', _context)
+
+    
 
 def kakaoLogout(request):
     _token = request.session['access_token']
