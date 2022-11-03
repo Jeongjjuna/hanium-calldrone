@@ -7,6 +7,20 @@
 
 <!-- main -->
 {% block content %}
+{% if check %}
+<div style="text-align: right; position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; background-color: #28333F;">
+    <form action="/app1/kakaoLogout" method="GET">
+        <input style= "background-color: #7B61FF; color: white; border-style:solid; border-width:0px; box-shadow: none; border-radius: 10%;" type="submit" value="로그아웃" />
+    </form>
+</div>
+{% else %}
+<div>
+    <form action="/app1/kakaoLoginLogic" method="GET">
+        <input type="submit" value="카카오로그인" />
+    </form>
+</div>
+{% endif %}
+
 <img src="/static/app1/css/images/Home/Level Overal.png" style="width: 363px; height: 48px; position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 30px;">
 <img src="/static/app1/css/images/Home/Headline.png" style="width: 31.11px; height: 31.11px; position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 150px;">
 <img src="/static/app1/css/images/Home/Group 237715.png" style="width: 316px; height: 339px; position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 180px;">

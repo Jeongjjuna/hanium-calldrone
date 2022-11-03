@@ -14,21 +14,6 @@
     </head>
     <body style="background-color: #28333F;">
     
-        {% if check %}
-        <div>
-            <h1>카카오 로그아웃</h1>
-            <form action="/app1/kakaoLogout" method="GET">
-                <input type="submit" value="카카오로그아웃" />
-            </form>
-        </div>
-        {% else %}
-            <div>
-                <h1>카카오 로그인</h1>
-                <form action="/app1/kakaoLoginLogic" method="GET">
-                <input type="submit" value="카카오로그인" />
-                </form>
-            </div>
-        {% endif %}
 
     <header>
         {% block header %}
@@ -45,11 +30,11 @@
 
 
     <footer>
-        <img src="/static/app1/css/images/Home/Bottom Navigation.png" style="width: 305px; height: 64px; position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 610px;">
+        <img src="/static/app1/css/images/Home/Bottom Navigation.png" style="width: 305px; height: 64px; position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 611px;">
         <div style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; text-align: center; top: 620px;">
-            <a href="/app1/page1"><img src="/static/app1/css/images/Home/Home Angle 2.png" style="margin-left: 10px; margin-right: 10px;"></a>
-            <a href="/app1/page2"><img src="/static/app1/css/images/Home/Mailbox.png" style="margin-left: 10px; margin-right: 10px;"></a>
-            <a href="/app1/page3"><img src="/static/app1/css/images/Home/Routing 2.png" style="margin-left: 10px; margin-right: 10px;"></a>
+            <a href="/app1/page1"><img src="/static/app1/css/images/Home/Home Angle 2.png" style="width: 40px; height: 40px; margin-left: 10px; margin-right: 10px;"></a>
+            <a href="/app1/page2"><img src="/static/app1/css/images/Home/Mailbox.png" style="width: 40px; height: 40px; margin-left: 10px; margin-right: 10px;"></a>
+            <a href="/app1/page3"><img src="/static/app1/css/images/Home/Routing 2.png" style="width: 40px; height: 40px; margin-left: 10px; margin-right: 10px;"></a>
             <a href="/app1/page4"><img src="/static/app1/css/images/Home/User.png" style="width: 40px; height: 40px; margin-left: 10px; margin-right: 10px;"></a>
         </div>
     </footer>
