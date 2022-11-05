@@ -59,7 +59,8 @@ def kakaoLogout(request):
         _context = {'check':False}
         return render(request, 'app1/login.html', _context)
     else:
-        return render(request, 'logoutError.html')
+        _context = {'check':False}
+        return render(request, 'app1/login.html', _context)
 
 #--------------주소 -> 위경도바꾸는 함수--------
 
