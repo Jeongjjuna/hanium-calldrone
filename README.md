@@ -3,6 +3,7 @@
 
 
 ---
+
 ### 내가 맡은 역할 : 클라이언트 - 서버 - 드론간의 실시간 통신 설계
 
 1. 사용자가 서버에 드론 요청을 한다.(HTTP요청)
@@ -11,18 +12,23 @@
 
 
 ---
+
 <img src="https://user-images.githubusercontent.com/87998104/230739034-21c93023-c8cb-4b6b-896d-4f3967abfc68.png" alt="이미지 설명" style="display: block; margin: 0 auto; width: 60%; border-radius: 3%;">
 
 ---
+
+<img src="https://user-images.githubusercontent.com/87998104/230739970-10438ed8-c055-49d3-a4b7-752bd0286e7b.PNG" alt="이미지 설명" style="display: block; margin: 0 auto; width: 60%">
+
+
+---
+
 <img src="https://user-images.githubusercontent.com/87998104/230738473-58da00f2-e42e-404b-b510-3c265e164391.PNG" alt="이미지 설명" style="display: block; margin: 0 auto; width: 60%">
----
-
-
-
-
-
 
 ---
+
+
+
+
 <사용한 라이브러리>
 
 python : 3.9.12
@@ -38,5 +44,3 @@ requests : 2.24.0
 haversine : 2.7.0
 
 kakao map api
-
-
